@@ -69,6 +69,56 @@ public class CustosDao {
         return custo;
     }
 
+ public void update(Custo custo) throws SQLException, ClassNotFoundException {
+    Connection con = ConnectionFactory.getConnection();
+    PreparedStatement stmt = null;
+
+    try {
+        // Prepara a query de UPDATE com os devidos campos a serem atualizados
+        stmt = con.prepareStatement("UPDATE tablecustosfixos SET nomeCusto = ?, valorCusto = ?, descricaoCusto = ? WHERE IDCUSTO = ?");
+        // Define os valores para cada campo com base no objeto custo
+        stmt.setString(1, custo.getnomeCusto());
+        stmt.setDouble(2, custo.getvalorCusto());
+        stmt.setString(3, custo.getdescricaoCusto());
+        stmt.setInt(4, custo.getIDCUSTO());
+
+        // Executa a query de UPDATE
+        int affectedRows = stmt.executeUpdate();
+        // Verifica se a atualização foi bem-sucedida
+        if (affectedRows > 0) {
+            JOptionPane.showMessageDialog(null, "Custo atualizado com sucesso");
+        } else {
+            JOptionPane.showMessageDialog(null, "Custo não encontrado");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao atualizar custo: " + ex);
+    } finally {
+        // Fecha conexões
+        ConnectionFactory.closeConnection(con, stmt);
+    }
+}
+  
+  public void delete(int idCusto) throws SQLException, ClassNotFoundException {
+    Connection con = ConnectionFactory.getConnection();
+    PreparedStatement stmt = null;
+
+    try {
+        stmt = con.prepareStatement("DELETE FROM tablecustosfixos WHERE IDCUSTO = ?");
+        stmt.setInt(1, idCusto);
+
+        int affectedRows = stmt.executeUpdate();
+        if (affectedRows > 0) {
+            JOptionPane.showMessageDialog(null, "Custo removido com sucesso");
+        } else {
+            JOptionPane.showMessageDialog(null, "Custo não encontrado");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao remover custo: " + ex);
+    } finally {
+        ConnectionFactory.closeConnection(con, stmt);
+    }
+}
+  
   }
     
 

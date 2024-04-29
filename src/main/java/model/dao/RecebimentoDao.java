@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class RecebimentoDao {
@@ -17,7 +16,7 @@ public class RecebimentoDao {
         PreparedStatement stmt = null;
         
         try{
-            stmt = con.prepareStatement("INSERT INTO tablerecebimentos (salario, decimoTerceiro, ferias, horasTrabalhadas, horasTotais) VALUES (?, ?, ?, ?, ?)");
+            stmt = con.prepareStatement("INSERT INTO tablerecebimentos (salario, decimoTerceiro, ferias, horasTrabalhadas, horasTotais) VALUES (?, ?, ?, ?, ?)ON DUPLICATE KEY UPDATE");
             stmt.setDouble(1, recebimento1.getSalario());
             stmt.setDouble(2, recebimento1.getDecimoTerceiro());
             stmt.setDouble(3, recebimento1.getFerias());

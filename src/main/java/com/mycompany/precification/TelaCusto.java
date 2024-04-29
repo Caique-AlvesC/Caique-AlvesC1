@@ -5,11 +5,12 @@
 package com.mycompany.precification;
 import arquivs.java.Custo;
 import javax.swing.*;
-import java.awt.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableRowSorter;
 import model.dao.CustosDao;
 /**
@@ -27,10 +28,22 @@ public class TelaCusto extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         DefaultTableModel modelo = (DefaultTableModel) CustoTable.getModel();
-        CustoTable.setRowSorter(new TableRowSorter (modelo));
+        TableColumnModel tcm = CustoTable.getColumnModel();
+        
+        int indiceDaColunaIDCUSTO = -1;
+    for (int i = 0; i < tcm.getColumnCount(); i++) {
+        if (tcm.getColumn(i).getHeaderValue().equals("IDCUSTO")) {
+            indiceDaColunaIDCUSTO = i;
+            break;
+        }
+    }
+        if (indiceDaColunaIDCUSTO != -1) {
+        TableColumn colunaIDCUSTO = tcm.getColumn(indiceDaColunaIDCUSTO);
+        tcm.removeColumn(colunaIDCUSTO);
+    }
+        CustoTable.setRowSorter(new TableRowSorter<>(modelo));
         listarCustoTable();
     }
-
     public void listarCustoTable() throws SQLException, ClassNotFoundException{
       DefaultTableModel modelo = (DefaultTableModel) CustoTable.getModel();
       modelo.setNumRows(0);
@@ -39,8 +52,8 @@ public class TelaCusto extends javax.swing.JFrame {
               modelo.addRow(new Object[]{
               custo.getnomeCusto(),
               custo.getvalorCusto(),
-              custo.getdescricaoCusto()
-              
+              custo.getdescricaoCusto(),
+              custo.getIDCUSTO()
           });
           
       }
@@ -60,6 +73,8 @@ public class TelaCusto extends javax.swing.JFrame {
         NomeCustoTextField = new javax.swing.JTextField();
         ValorCustoTextField = new javax.swing.JTextField();
         DescricaoCustoTextField = new javax.swing.JTextField();
+        ExcluirCustoButton = new javax.swing.JButton();
+        updateCustoButton1 = new javax.swing.JButton();
         AddCustoButton = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -90,6 +105,20 @@ public class TelaCusto extends javax.swing.JFrame {
             }
         });
 
+        ExcluirCustoButton.setText("Excluir");
+        ExcluirCustoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirCustoButtonActionPerformed(evt);
+            }
+        });
+
+        updateCustoButton1.setText("Atualizar");
+        updateCustoButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateCustoButton1ActionPerformed(evt);
+            }
+        });
+
         AddCustoButton.setText("Add");
         AddCustoButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,42 +138,43 @@ public class TelaCusto extends javax.swing.JFrame {
                         .addComponent(NomeCustoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ValorCustoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(AddCustoButton)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ExcluirCustoButton)
+                    .addComponent(updateCustoButton1)
+                    .addComponent(AddCustoButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(AddCustoButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(NomeCustoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+                    .addComponent(ValorCustoTextField)
+                    .addComponent(AddCustoButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(DescricaoCustoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(NomeCustoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                            .addComponent(ValorCustoTextField))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DescricaoCustoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(ExcluirCustoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(updateCustoButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(15, 15, 15))
         );
 
         CustoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Custos", "Valores", "Descrições"
+                "Custos", "Valores", "Descrições", "IDCUSTO"
             }
         ));
         jScrollPane1.setViewportView(CustoTable);
-        if (CustoTable.getColumnModel().getColumnCount() > 0) {
-            CustoTable.getColumnModel().getColumn(0).setHeaderValue("Custos");
-            CustoTable.getColumnModel().getColumn(1).setHeaderValue("Valores");
-            CustoTable.getColumnModel().getColumn(2).setHeaderValue("Descrições");
-        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -159,7 +189,7 @@ public class TelaCusto extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -171,7 +201,7 @@ public class TelaCusto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(0, 447, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(custReturnInicio))
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -206,8 +236,35 @@ public class TelaCusto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_DescricaoCustoTextFieldActionPerformed
 
-    private void AddCustoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCustoButtonActionPerformed
+    private void ExcluirCustoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExcluirCustoButtonActionPerformed
+    if (CustoTable.getSelectedRow() != -1) {
+        int selectedRow = CustoTable.getSelectedRow();
+        DefaultTableModel modelo = (DefaultTableModel) CustoTable.getModel();
+        int idCusto = Integer.parseInt(modelo.getValueAt(selectedRow, 0).toString());  // Supondo que a coluna 0 contém o IDCUSTO
+
+        CustosDao dao = new CustosDao();
         try {
+            dao.delete(idCusto);
+            modelo.removeRow(selectedRow);  // Remove a linha do modelo após a exclusão bem-sucedida
+            JOptionPane.showMessageDialog(null, "Custo excluído com sucesso");
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir o custo: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Classe não encontrada: " + ex.getMessage());
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Selecione um custo para excluir");
+    }
+    }//GEN-LAST:event_ExcluirCustoButtonActionPerformed
+
+    private void updateCustoButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCustoButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_updateCustoButton1ActionPerformed
+
+    private void AddCustoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCustoButtonActionPerformed
+         try {
             Custo custo = new Custo();
             CustosDao dao = new CustosDao();
             
@@ -216,12 +273,9 @@ public class TelaCusto extends javax.swing.JFrame {
             custo.setdescricaoCusto(DescricaoCustoTextField.getText());
             dao.create(custo);
             listarCustoTable();
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
+        } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
         }
-         
     }//GEN-LAST:event_AddCustoButtonActionPerformed
 
     /**
@@ -233,11 +287,13 @@ public class TelaCusto extends javax.swing.JFrame {
     private javax.swing.JButton AddCustoButton;
     private javax.swing.JTable CustoTable;
     private javax.swing.JTextField DescricaoCustoTextField;
+    private javax.swing.JButton ExcluirCustoButton;
     private javax.swing.JTextField NomeCustoTextField;
     private javax.swing.JTextField ValorCustoTextField;
     private javax.swing.JButton custReturnInicio;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton updateCustoButton1;
     // End of variables declaration//GEN-END:variables
 }

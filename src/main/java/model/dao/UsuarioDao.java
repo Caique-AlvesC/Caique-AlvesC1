@@ -15,24 +15,18 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class UsuarioDao {
-public boolean checkLogin(String login ,String senha) throws SQLException, ClassNotFoundException{
+public int checkLogin(String login ,String senha) throws SQLException, ClassNotFoundException{
         
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        boolean check = false;
         try {
             stmt = con.prepareStatement("SELECT * FROM usuario WHERE login = ? and senha = ?");
             stmt.setString(1,login);
             stmt.setString(2,senha);
             rs = stmt.executeQuery();
-            
             if(rs.next()){
-                Usuario user = new Usuario();
-                user.setId(rs.getInt("Id"));
-                user.setLogin(rs.getString("Login"));
-                user.setSenha(rs.getString("Senha"));
-                check = true; 
+            return rs.getInt("id");
             }
             
         } catch (SQLException ex) {
@@ -41,7 +35,7 @@ public boolean checkLogin(String login ,String senha) throws SQLException, Class
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         
-        return check;
+        return -1;
     }
 
     public void cadastrar(Usuario usuario) throws SQLException, ClassNotFoundException {

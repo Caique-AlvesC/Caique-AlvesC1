@@ -1,6 +1,7 @@
 
 package com.mycompany.precification;
 
+import arquivs.java.Usuario;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
@@ -92,7 +93,9 @@ public class TelaLogin extends javax.swing.JFrame {
     char[] passwordArray = senhaTextField.getPassword();
     String password = new String(passwordArray);
     try {
-        if (dao.checkLogin(username, password)) {
+        int userId = dao.checkLogin(username, password);
+        if (userId > 0) {
+            Usuario.getInstance().setCodUsuario(userId);
             JOptionPane.showMessageDialog(null, "Bem Vindo!!");
             this.dispose();
             java.awt.EventQueue.invokeLater(() -> {

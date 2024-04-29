@@ -10,11 +10,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TelaInicial extends javax.swing.JFrame {
-
+private int codUsuario;
     public TelaInicial() {
         super("Tela Inicial");
+        this.codUsuario = codUsuario;
         initComponents();
         this.setLocationRelativeTo(null);
+        JOptionPane.showMessageDialog(null, "Seu Id de Login é " + this.codUsuario);
     }
     
     @SuppressWarnings("unchecked")

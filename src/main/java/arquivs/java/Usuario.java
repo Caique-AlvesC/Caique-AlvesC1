@@ -5,10 +5,32 @@
 package arquivs.java;
 
 public class Usuario {
+    private static Usuario instance;
     private int id; 
     private String login;
     private String senha;
+    private int codUsuario;
 
+    public int getCodUsuario() {
+        return codUsuario;
+    }
+
+    public void setCodUsuario(int codUsuario) {
+        this.codUsuario = codUsuario;
+    }
+
+    public Usuario(){}
+    public static Usuario getInstance(){
+        if(instance == null){
+            instance = new Usuario();
+        }
+        return instance;
+    }
+    
+    
+    
+    
+    
     public int getId() {
         return id;
     }
