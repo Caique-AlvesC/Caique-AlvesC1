@@ -1,6 +1,7 @@
 package com.mycompany.precification;
 
 import arquivs.java.Recebimento1;
+import arquivs.java.Usuario;
 import com.mycompany.precification.TelaInicial;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -29,7 +30,9 @@ public class TelaRecebimento extends javax.swing.JFrame{
               recebimento1.getDecimoTerceiro(),
               recebimento1.getFerias(),
               recebimento1.getHorasTrabalhadas(),
-              recebimento1.getHorasTotais()
+              recebimento1.getHorasTotais(),
+              recebimento1.getIDReb(),
+              recebimento1.getUser_codUsuario()
           });
       }
 }
@@ -75,14 +78,14 @@ public class TelaRecebimento extends javax.swing.JFrame{
 
         TableRecebimento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Salário", "Décimo Terceiro", "Férias", "Horas Trabalhadas", "Horas Totais"
+                "Salário", "Décimo Terceiro", "Férias", "Horas Trabalhadas", "Horas Totais", "ID", "ID USUARIO"
             }
         ));
         jScrollPane1.setViewportView(TableRecebimento);
@@ -169,6 +172,7 @@ try {
             recebimento1.setFerias(Double.parseDouble(FeriasTextField.getText()));
             recebimento1.setHorasTrabalhadas(Double.parseDouble(HorasTrabalhadasTextField.getText()));
             recebimento1.setHorasTotais(Double.parseDouble(HorasTotaisTextField.getText()));
+            recebimento1.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
             dao.create(recebimento1);
             listarTableRecebimento();
     }//GEN-LAST:event_saveActionPerformed

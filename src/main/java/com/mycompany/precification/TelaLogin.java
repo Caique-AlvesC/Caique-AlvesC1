@@ -95,6 +95,7 @@ public class TelaLogin extends javax.swing.JFrame {
     try {
         int userId = dao.checkLogin(username, password);
         if (userId > 0) {
+           
             Usuario.getInstance().setCodUsuario(userId);
             JOptionPane.showMessageDialog(null, "Bem Vindo!!");
             this.dispose();

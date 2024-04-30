@@ -7,6 +7,8 @@ public class Recebimento1 {
     private double ferias;
     private double horasTrabalhadas;
     private double horasTotais;
+    private int IDReb;
+    private int User_codUsuario;
     
     public Recebimento1(){
         this.salario = salario;
@@ -14,6 +16,24 @@ public class Recebimento1 {
         this.ferias = ferias;
         this.horasTrabalhadas = horasTrabalhadas;
         this.horasTotais = horasTotais;
+        this.IDReb = IDReb;
+        this.User_codUsuario = User_codUsuario;
+    }
+
+    public int getIDReb() {
+        return IDReb;
+    }
+
+    public void setIDReb(int id) {
+        this.IDReb = id;
+    }
+
+    public int getUser_codUsuario() {
+        return User_codUsuario;
+    }
+
+    public void setUser_codUsuario(int User_codUsuario) {
+        this.User_codUsuario = User_codUsuario;
     }
     
     Recebimento1(double aDouble, double aDouble0, double aDouble1, double aDouble2, double aDouble3) {

@@ -21,7 +21,7 @@ public int checkLogin(String login ,String senha) throws SQLException, ClassNotF
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
-            stmt = con.prepareStatement("SELECT * FROM usuario WHERE login = ? and senha = ?");
+            stmt = con.prepareStatement("SELECT id FROM usuario WHERE login = ? and senha = ?");
             stmt.setString(1,login);
             stmt.setString(2,senha);
             rs = stmt.executeQuery();

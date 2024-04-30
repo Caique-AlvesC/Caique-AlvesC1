@@ -16,12 +16,14 @@ public class RecebimentoDao {
         PreparedStatement stmt = null;
         
         try{
-            stmt = con.prepareStatement("INSERT INTO tablerecebimentos (salario, decimoTerceiro, ferias, horasTrabalhadas, horasTotais) VALUES (?, ?, ?, ?, ?)ON DUPLICATE KEY UPDATE");
+            stmt = con.prepareStatement("INSERT INTO tablerecebimentos (salario, decimoTerceiro, ferias, horasTrabalhadas, horasTotais, IDReb, User_codUsuario) VALUES (?, ?, ?, ?, ?, ?, ?)ON DUPLICATE KEY UPDATE");
             stmt.setDouble(1, recebimento1.getSalario());
             stmt.setDouble(2, recebimento1.getDecimoTerceiro());
             stmt.setDouble(3, recebimento1.getFerias());
             stmt.setDouble(4, recebimento1.getHorasTrabalhadas());
             stmt.setDouble(5, recebimento1.getHorasTotais());
+            stmt.setInt(6, recebimento1.getIDReb());
+            stmt.setInt(7, recebimento1.getUser_codUsuario());
             
             stmt.executeUpdate();
             JOptionPane.showMessageDialog(null,"Valor adicionado com sucesso");            
@@ -48,6 +50,8 @@ public class RecebimentoDao {
             recebiment.setFerias(rs.getDouble("ferias"));
             recebiment.setHorasTrabalhadas(rs.getDouble("horasTrabalhadas"));
             recebiment.setHorasTotais(rs.getDouble("horasTotais"));
+            recebiment.setIDReb(rs.getInt("IDReb"));
+            recebiment.setUser_codUsuario(rs.getInt("User_codUsuario"));
             recebimentos.add(recebiment); // This line was missing.
         }
     } finally {

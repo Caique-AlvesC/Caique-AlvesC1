@@ -4,6 +4,7 @@
  */
 package com.mycompany.precification;
 import arquivs.java.Custo;
+import arquivs.java.Usuario;
 import javax.swing.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -53,7 +54,9 @@ public class TelaCusto extends javax.swing.JFrame {
               custo.getnomeCusto(),
               custo.getvalorCusto(),
               custo.getdescricaoCusto(),
-              custo.getIDCUSTO()
+              custo.getIDCUSTO(),
+              custo.getUser_codUsuario()
+              
           });
           
       }
@@ -165,16 +168,28 @@ public class TelaCusto extends javax.swing.JFrame {
 
         CustoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Custos", "Valores", "Descrições", "IDCUSTO"
+                "Custos", "Valores", "Descrições", "IDCUSTO", "ID USUARIO"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(CustoTable);
+        if (CustoTable.getColumnModel().getColumnCount() > 0) {
+            CustoTable.getColumnModel().getColumn(3).setMaxWidth(0);
+            CustoTable.getColumnModel().getColumn(4).setMaxWidth(0);
+        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -271,6 +286,7 @@ public class TelaCusto extends javax.swing.JFrame {
             custo.setnomeCusto(NomeCustoTextField.getText());
             custo.setvalorCusto(Double.parseDouble(ValorCustoTextField.getText()));
             custo.setdescricaoCusto(DescricaoCustoTextField.getText());
+            custo.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
             dao.create(custo);
             listarCustoTable();
         } catch (SQLException | ClassNotFoundException ex) {

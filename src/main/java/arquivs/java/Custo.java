@@ -9,12 +9,16 @@ public class Custo {
     private double valorCusto;
     private String descricaoCusto;
     private int IDCUSTO;
+    private int User_codUsuario;
+
+   
     
 public Custo() {
     this.nomeCusto = nomeCusto;
     this.valorCusto = valorCusto;
     this.descricaoCusto = descricaoCusto;
     this.IDCUSTO = IDCUSTO;
+    this.User_codUsuario = User_codUsuario;
 }    
    Custo(String string, double aDouble, String string0, int aInteger){
        throw new UnsupportedOperationException("Not supported yet.");
@@ -51,6 +55,14 @@ public Custo() {
    public void setIDCUSTO(int IDCUSTO){
        this.IDCUSTO = IDCUSTO;
    }
+   
+    public int getUser_codUsuario() {
+        return User_codUsuario;
+    }
+
+    public void setUser_codUsuario(int User_codUsuario) {
+        this.User_codUsuario = User_codUsuario;
+    }
    
    public void add(Custo custo){
        throw new UnsupportedOperationException("Not supported yet.");

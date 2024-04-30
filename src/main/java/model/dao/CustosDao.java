@@ -23,11 +23,12 @@ public class CustosDao {
       PreparedStatement stmt = null;
       
       try{
-         stmt = con.prepareStatement("INSERT INTO tablecustosfixos (nomeCusto, valorCusto, descricaoCusto, IDCUSTO) VALUES (?, ?, ?, ?)");
+         stmt = con.prepareStatement("INSERT INTO tablecustosfixos (nomeCusto, valorCusto, descricaoCusto, IDCUSTO, User_codUsuario) VALUES (?, ?, ?, ?, ?)");
          stmt.setString(1, custo.getnomeCusto());
          stmt.setDouble(2, custo.getvalorCusto());
          stmt.setString(3, custo.getdescricaoCusto());
          stmt.setInt(4, custo.getIDCUSTO());
+         stmt.setInt(5, custo.getUser_codUsuario());
          
          stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null,"Custo adicionado com sucesso");
@@ -57,6 +58,7 @@ public class CustosDao {
                 custos.setvalorCusto(rs.getDouble("valorCusto"));
                 custos.setdescricaoCusto(rs.getString("descricaoCusto"));
                 custos.setIDCUSTO(rs.getInt("IDCUSTO"));
+                custos.setUser_codUsuario(rs.getInt("User_codUsuario"));
                 custo.add(custos);  
             }
             

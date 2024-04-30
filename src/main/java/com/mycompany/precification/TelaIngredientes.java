@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.precification;
+import arquivs.java.Usuario;
 import model.dao.IngredienteDao;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -38,8 +39,10 @@ public class TelaIngredientes extends javax.swing.JFrame {
               ingredientes.getPreco(),
               ingredientes.getQuantidade(),
               ingredientes.getMetrica(),
-              ingredientes.getDescricao()
-              
+              ingredientes.getDescricao(),
+              ingredientes.getIDIngr(),
+              ingredientes.getUser_codUsuario()
+                      
           });
           
       }
@@ -85,9 +88,17 @@ public class TelaIngredientes extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Produto", "Preco", "Quantidade", "Metrica", "Descricao"
+                "Produto", "Preco", "Quantidade", "Metrica", "Descricao", "ID", "ID Usuario"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(IngredientesTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -177,9 +188,7 @@ public class TelaIngredientes extends javax.swing.JFrame {
                             .addComponent(produtoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(precoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(quantTextField)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(metricaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(metricaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(descriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -251,6 +260,8 @@ public class TelaIngredientes extends javax.swing.JFrame {
             ingredientes.setQuantidade(Double.parseDouble(quantTextField.getText()));
             ingredientes.setMetrica(metricaBox.getSelectedItem().toString());
             ingredientes.setDescricao(descriptionTextField.getText());
+            ingredientes.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
+            
             dao.create(ingredientes);
             listarIngredientesTable();
 

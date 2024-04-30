@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.precification;
+import arquivs.java.Usuario;
 import javax.swing.*;
 import java.awt.*;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ private int codUsuario;
         this.codUsuario = codUsuario;
         initComponents();
         this.setLocationRelativeTo(null);
-        JOptionPane.showMessageDialog(null, "Seu Id de Login é " + this.codUsuario);
+        JOptionPane.showMessageDialog(null, "Seu Id de Login é " + Usuario.getInstance().getCodUsuario());
     }
     
     @SuppressWarnings("unchecked")

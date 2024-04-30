@@ -18,13 +18,14 @@ public class IngredienteDao {
             PreparedStatement stmt = null;
             
             try{
-                stmt = con.prepareStatement("INSERT INTO tableingrediente (Produto, Preco, Quantidade, Metrica, Descricao) VALUES (?, ?, ?, ?, ?)");
+                stmt = con.prepareStatement("INSERT INTO tableingrediente (Produto, Preco, Quantidade, Metrica, Descricao, IDIngr, User_codUsuario) VALUES (?, ?, ?, ?, ?, ?, ?)");
                 stmt.setString(1, ingredientes.getProduto());
                 stmt.setDouble(2, ingredientes.getPreco());
                 stmt.setDouble(3, ingredientes.getQuantidade());
                 stmt.setString(4, ingredientes.getMetrica());
                 stmt.setString(5, ingredientes.getDescricao());
-                
+                stmt.setInt(6, ingredientes.getIDIngr());
+                stmt.setInt(7, ingredientes.getUser_codUsuario());
                 stmt.executeUpdate();
                 JOptionPane.showMessageDialog(null,"produto adicionado com sucesso");
             }
@@ -55,6 +56,8 @@ public class IngredienteDao {
                 ingredie.setQuantidade(rs.getDouble("Quantidade"));
                 ingredie.setMetrica(rs.getString("Metrica"));
                 ingredie.setDescricao(rs.getString("Descricao"));
+                ingredie.setIDIngr(rs.getInt("IDIngr"));
+                ingredie.setUser_codUsuario(rs.getInt("User_codUsuario"));
                 ingredientes.add(ingredie);
                 
             }
