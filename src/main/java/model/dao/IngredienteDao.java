@@ -1,6 +1,7 @@
 package model.dao;
 
 import arquivs.java.Ingredientes;
+import arquivs.java.Usuario;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -46,7 +47,9 @@ public class IngredienteDao {
         List<Ingredientes> ingredientes = new ArrayList<>();
         
         try {
-            stmt = con.prepareStatement("SELECT * FROM tableingrediente");
+            int codUsuario = Usuario.getInstance().getCodUsuario();
+            stmt = con.prepareStatement("SELECT * FROM tableingrediente WHERE User_codUsuario = ?");
+            stmt.setInt(1, codUsuario);
             rs = stmt.executeQuery();
             
             while(rs.next()){
