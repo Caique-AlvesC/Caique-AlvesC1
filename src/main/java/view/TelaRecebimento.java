@@ -1,8 +1,8 @@
-package com.mycompany.precification;
+package view;
 
 import arquivs.java.Recebimento1;
 import arquivs.java.Usuario;
-import com.mycompany.precification.TelaInicial;
+import view.TelaInicial;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;

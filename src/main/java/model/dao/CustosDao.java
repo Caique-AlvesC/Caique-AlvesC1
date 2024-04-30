@@ -5,7 +5,7 @@
 package model.dao;
 
 import arquivs.java.Custo;
-import com.mycompany.precification.Ingredientes;
+import arquivs.java.Ingredientes;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

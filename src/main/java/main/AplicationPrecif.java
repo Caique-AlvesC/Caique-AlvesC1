@@ -1,6 +1,7 @@
 
-package com.mycompany.precification;
+package main;
 
+import view.TelaLogin;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;

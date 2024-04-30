@@ -16,7 +16,15 @@ public class RecebimentoDao {
         PreparedStatement stmt = null;
         
         try{
-            stmt = con.prepareStatement("INSERT INTO tablerecebimentos (salario, decimoTerceiro, ferias, horasTrabalhadas, horasTotais, IDReb, User_codUsuario) VALUES (?, ?, ?, ?, ?, ?, ?)ON DUPLICATE KEY UPDATE");
+            stmt = con.prepareStatement(
+    "INSERT INTO tablerecebimentos (salario, decimoTerceiro, ferias, horasTrabalhadas, horasTotais, IDReb, User_codUsuario) " +
+    "VALUES (?, ?, ?, ?, ?, ?, ?) " +
+    "ON DUPLICATE KEY UPDATE " +
+    "salario = VALUES(salario), " +
+    "decimoTerceiro = VALUES(decimoTerceiro), " +
+    "ferias = VALUES(ferias), " +
+    "horasTrabalhadas = VALUES(horasTrabalhadas), " +
+    "horasTotais = VALUES(horasTotais)");
             stmt.setDouble(1, recebimento1.getSalario());
             stmt.setDouble(2, recebimento1.getDecimoTerceiro());
             stmt.setDouble(3, recebimento1.getFerias());

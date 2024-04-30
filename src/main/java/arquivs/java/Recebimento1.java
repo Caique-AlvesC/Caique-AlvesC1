@@ -36,9 +36,6 @@ public class Recebimento1 {
         this.User_codUsuario = User_codUsuario;
     }
     
-    Recebimento1(double aDouble, double aDouble0, double aDouble1, double aDouble2, double aDouble3) {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
 
     public double getSalario() {
         return salario;

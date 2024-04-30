@@ -1,5 +1,5 @@
 
-package com.mycompany.precification;
+package view;
 
 import arquivs.java.Usuario;
 import javax.swing.*;

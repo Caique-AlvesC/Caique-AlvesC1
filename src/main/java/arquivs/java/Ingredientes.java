@@ -1,5 +1,5 @@
 
-package com.mycompany.precification;
+package arquivs.java;
 
 public class Ingredientes {
     private String produto;
