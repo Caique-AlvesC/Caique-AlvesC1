@@ -17,7 +17,7 @@ private int codUsuario;
         this.codUsuario = codUsuario;
         initComponents();
         this.setLocationRelativeTo(null);
-        JOptionPane.showMessageDialog(null, "Seu Id de Login é " + Usuario.getInstance().getCodUsuario());
+//        JOptionPane.showMessageDialog(null, "Seu Id de Login é " + Usuario.getInstance().getCodUsuario());
     }
     
     @SuppressWarnings("unchecked")

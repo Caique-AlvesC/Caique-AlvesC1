@@ -1,6 +1,7 @@
 package model.dao;
 
 import arquivs.java.Recebimento1;
+import arquivs.java.Usuario;
 import connection.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,8 +50,12 @@ public class RecebimentoDao {
     ResultSet rs = null;
     List<Recebimento1> recebimentos = new ArrayList<>();
     try {
-        stmt = con.prepareStatement("SELECT * FROM tablerecebimentos");
-        rs = stmt.executeQuery();
+            int codUsuario = Usuario.getInstance().getCodUsuario();
+            stmt = con.prepareStatement("SELECT * FROM tablerecebimentos WHERE User_codUsuario = ?");
+            stmt.setInt(1, codUsuario);
+            rs = stmt.executeQuery();
+        
+        
         while (rs.next()) {
             Recebimento1 recebiment = new Recebimento1();
             recebiment.setSalario(rs.getDouble("salario"));

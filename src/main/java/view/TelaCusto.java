@@ -186,10 +186,6 @@ public class TelaCusto extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(CustoTable);
-        if (CustoTable.getColumnModel().getColumnCount() > 0) {
-            CustoTable.getColumnModel().getColumn(3).setMaxWidth(0);
-            CustoTable.getColumnModel().getColumn(4).setMaxWidth(0);
-        }
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -255,13 +251,12 @@ public class TelaCusto extends javax.swing.JFrame {
     if (CustoTable.getSelectedRow() != -1) {
         int selectedRow = CustoTable.getSelectedRow();
         DefaultTableModel modelo = (DefaultTableModel) CustoTable.getModel();
-        int idCusto = Integer.parseInt(modelo.getValueAt(selectedRow, 0).toString());  // Supondo que a coluna 0 contém o IDCUSTO
+        int idCusto = Integer.parseInt(modelo.getValueAt(selectedRow, 3).toString());
 
         CustosDao dao = new CustosDao();
         try {
             dao.delete(idCusto);
-            modelo.removeRow(selectedRow);  // Remove a linha do modelo após a exclusão bem-sucedida
-            JOptionPane.showMessageDialog(null, "Custo excluído com sucesso");
+            modelo.removeRow(selectedRow);
         } catch (SQLException ex) {
             Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, "Erro ao excluir o custo: " + ex.getMessage());
