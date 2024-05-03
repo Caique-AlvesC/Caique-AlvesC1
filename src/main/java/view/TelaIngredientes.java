@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
@@ -56,7 +57,6 @@ public class TelaIngredientes extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        UpdateButtonTabIng = new javax.swing.JButton();
         IngredReturnInicio = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         IngredientesTable = new javax.swing.JTable();
@@ -67,15 +67,10 @@ public class TelaIngredientes extends javax.swing.JFrame {
         descriptionTextField = new javax.swing.JTextField();
         salvarAddIngred = new javax.swing.JButton();
         produtoTextField = new javax.swing.JTextField();
+        UpdateButtonTabIng = new javax.swing.JButton();
+        deleteIngButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        UpdateButtonTabIng.setText("Atualizar Tabela");
-        UpdateButtonTabIng.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateButtonTabIngActionPerformed(evt);
-            }
-        });
 
         IngredReturnInicio.setText("Voltar");
         IngredReturnInicio.addActionListener(new java.awt.event.ActionListener() {
@@ -100,6 +95,11 @@ public class TelaIngredientes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        IngredientesTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                IngredientesTableMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(IngredientesTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -108,8 +108,6 @@ public class TelaIngredientes extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(UpdateButtonTabIng, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(IngredReturnInicio)
                 .addGap(25, 25, 25))
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -120,9 +118,7 @@ public class TelaIngredientes extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(UpdateButtonTabIng)
-                    .addComponent(IngredReturnInicio))
+                .addComponent(IngredReturnInicio)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -160,6 +156,20 @@ public class TelaIngredientes extends javax.swing.JFrame {
             }
         });
 
+        UpdateButtonTabIng.setText("Atualizar Tabela");
+        UpdateButtonTabIng.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateButtonTabIngActionPerformed(evt);
+            }
+        });
+
+        deleteIngButton.setText("Excluir Ingrediente");
+        deleteIngButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteIngButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -176,7 +186,12 @@ public class TelaIngredientes extends javax.swing.JFrame {
                         .addComponent(quantTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(metricaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(salvarAddIngred, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(salvarAddIngred, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(UpdateButtonTabIng, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteIngButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -193,7 +208,10 @@ public class TelaIngredientes extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(descriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(salvarAddIngred, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(salvarAddIngred, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(UpdateButtonTabIng, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(deleteIngButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(54, 54, 54))
         );
 
@@ -228,11 +246,38 @@ public class TelaIngredientes extends javax.swing.JFrame {
     }//GEN-LAST:event_IngredReturnInicioActionPerformed
 
     private void UpdateButtonTabIngActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateButtonTabIngActionPerformed
-        try {
-            listarIngredientesTable();
-        } catch (SQLException | ClassNotFoundException ex) {
-            Logger.getLogger(TelaIngredientes.class.getName()).log(Level.SEVERE, null, ex);
-        }
+if (IngredientesTable.getSelectedRow() != -1) {
+
+            try {
+                Ingredientes ingrediente = new Ingredientes();
+                IngredienteDao dao = new IngredienteDao();
+                int IDIngr = Integer.parseInt(IngredientesTable.getValueAt(IngredientesTable.getSelectedRow(), 5).toString());
+                int user_codUsuario = Integer.parseInt(IngredientesTable.getValueAt(IngredientesTable.getSelectedRow(), 6).toString());
+                
+                ingrediente.setProduto(produtoTextField.getText());
+                ingrediente.setPreco(Double.parseDouble(precoTextField.getText()));
+                ingrediente.setQuantidade(Double.parseDouble(quantTextField.getText()));
+                ingrediente.setMetrica(metricaBox.getSelectedItem().toString());
+                ingrediente.setDescricao(descriptionTextField.getText());
+                ingrediente.setIDIngr(IDIngr);
+                ingrediente.setUser_codUsuario(user_codUsuario);
+                
+                
+                dao.update(ingrediente);
+                listarIngredientesTable();
+                
+                produtoTextField.setText("");
+                precoTextField.setText("");
+                quantTextField.setText("");
+                metricaBox.setSelectedItem("");
+                descriptionTextField.setText("");
+
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaIngredientes.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaIngredientes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                }
     }//GEN-LAST:event_UpdateButtonTabIngActionPerformed
 
     private void precoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precoTextFieldActionPerformed
@@ -266,9 +311,11 @@ public class TelaIngredientes extends javax.swing.JFrame {
             dao.create(ingredientes);
             listarIngredientesTable();
 
-            
-            
-            
+            produtoTextField.setText("");
+            precoTextField.setText("");
+            quantTextField.setText("");
+            metricaBox.setSelectedItem("");
+            descriptionTextField.setText("");
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(TelaIngredientes.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -278,12 +325,52 @@ public class TelaIngredientes extends javax.swing.JFrame {
 
     }//GEN-LAST:event_produtoTextFieldActionPerformed
 
+    private void deleteIngButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteIngButtonActionPerformed
+        if (IngredientesTable.getSelectedRow() != -1) {
+        int selectedRow = IngredientesTable.getSelectedRow();
+        DefaultTableModel modelo = (DefaultTableModel) IngredientesTable.getModel();
+        int IDIngr = Integer.parseInt(modelo.getValueAt(selectedRow, 5).toString());
+
+        IngredienteDao dao = new IngredienteDao();
+        try {
+            dao.delete(IDIngr);
+            modelo.removeRow(selectedRow);
+            
+                produtoTextField.setText("");
+                precoTextField.setText("");
+                quantTextField.setText("");
+                metricaBox.setSelectedItem("");
+                descriptionTextField.setText("");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaIngredientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir o ingrediente: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaIngredientes.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Classe não encontrada: " + ex.getMessage());
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Selecione um ingrediente para excluir");
+    }
+    }//GEN-LAST:event_deleteIngButtonActionPerformed
+
+    private void IngredientesTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_IngredientesTableMouseReleased
+        if (IngredientesTable.getSelectedRow() != -1) {
+        produtoTextField.setText(IngredientesTable.getValueAt(IngredientesTable.getSelectedRow(), 0).toString());
+        precoTextField.setText(IngredientesTable.getValueAt(IngredientesTable.getSelectedRow(), 1).toString());
+        quantTextField.setText(IngredientesTable.getValueAt(IngredientesTable.getSelectedRow(), 2).toString());
+        metricaBox.setSelectedItem(IngredientesTable.getValueAt(IngredientesTable.getSelectedRow(), 3).toString());
+        descriptionTextField.setText(IngredientesTable.getValueAt(IngredientesTable.getSelectedRow(), 4).toString());
+        }
+    }//GEN-LAST:event_IngredientesTableMouseReleased
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton IngredReturnInicio;
     private javax.swing.JTable IngredientesTable;
     private javax.swing.JButton UpdateButtonTabIng;
+    private javax.swing.JButton deleteIngButton;
     private javax.swing.JTextField descriptionTextField;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

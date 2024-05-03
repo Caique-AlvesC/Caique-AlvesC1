@@ -6,6 +6,7 @@ import view.TelaInicial;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import model.dao.RecebimentoDao;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -48,6 +49,7 @@ public class TelaRecebimento extends javax.swing.JFrame{
         TableRecebimento = new javax.swing.JTable();
         back = new javax.swing.JButton();
         save = new javax.swing.JButton();
+        DelRebButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,6 +90,11 @@ public class TelaRecebimento extends javax.swing.JFrame{
                 "Salário", "Décimo Terceiro", "Férias", "Horas Trabalhadas", "Horas Totais", "ID", "ID USUARIO"
             }
         ));
+        TableRecebimento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                TableRecebimentoMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(TableRecebimento);
 
         back.setText("voltar");
@@ -104,6 +111,13 @@ public class TelaRecebimento extends javax.swing.JFrame{
             }
         });
 
+        DelRebButton.setText("Excluir dados");
+        DelRebButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DelRebButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,20 +125,25 @@ public class TelaRecebimento extends javax.swing.JFrame{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(salarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(save, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(salarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(DecimoTerceiroTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(FeriasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DecimoTerceiroTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FeriasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(HorasTrabalhadasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(HorasTotaisTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
-                        .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(HorasTrabalhadasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(HorasTotaisTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(DelRebButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(22, 22, 22))
         );
         layout.setVerticalGroup(
@@ -139,10 +158,12 @@ public class TelaRecebimento extends javax.swing.JFrame{
                     .addComponent(HorasTotaisTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(save)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(save)
+                    .addComponent(DelRebButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -175,6 +196,12 @@ try {
             recebimento1.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
             dao.create(recebimento1);
             listarTableRecebimento();
+            
+            salarioTextField.setText("");
+            DecimoTerceiroTextField.setText("");
+            FeriasTextField.setText("");
+            HorasTrabalhadasTextField.setText("");
+            HorasTotaisTextField.setText("");    
     }//GEN-LAST:event_saveActionPerformed
  catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(TelaRecebimento.class.getName()).log(Level.SEVERE, null, ex);
@@ -184,10 +211,49 @@ try {
         // TODO add your handling code here:
     }//GEN-LAST:event_FeriasTextFieldActionPerformed
 
+    private void DelRebButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DelRebButtonActionPerformed
+        if (TableRecebimento.getSelectedRow() != -1) {
+        int selectedRow = TableRecebimento.getSelectedRow();
+        DefaultTableModel modelo = (DefaultTableModel) TableRecebimento.getModel();
+        int IDReb = Integer.parseInt(modelo.getValueAt(selectedRow, 5).toString());
+
+        RecebimentoDao dao = new RecebimentoDao();
+        try {
+            dao.delete(IDReb);
+            modelo.removeRow(selectedRow);
+            
+            salarioTextField.setText("");
+            DecimoTerceiroTextField.setText("");
+            FeriasTextField.setText("");
+            HorasTrabalhadasTextField.setText("");
+            HorasTotaisTextField.setText(""); 
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Erro ao excluir os dados de Recibemento: " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "Classe não encontrada: " + ex.getMessage());
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "Selecione para excluir");
+    }
+    }//GEN-LAST:event_DelRebButtonActionPerformed
+
+    private void TableRecebimentoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableRecebimentoMouseReleased
+       if (TableRecebimento.getSelectedRow() != -1) {
+        salarioTextField.setText(TableRecebimento.getValueAt(TableRecebimento.getSelectedRow(), 0).toString());
+        DecimoTerceiroTextField.setText(TableRecebimento.getValueAt(TableRecebimento.getSelectedRow(), 1).toString());
+        FeriasTextField.setText(TableRecebimento.getValueAt(TableRecebimento.getSelectedRow(), 2).toString());
+        HorasTrabalhadasTextField.setText(TableRecebimento.getValueAt(TableRecebimento.getSelectedRow(), 3).toString());
+        HorasTotaisTextField.setText(TableRecebimento.getValueAt(TableRecebimento.getSelectedRow(), 4).toString());
+       }
+    }//GEN-LAST:event_TableRecebimentoMouseReleased
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField DecimoTerceiroTextField;
+    private javax.swing.JButton DelRebButton;
     private javax.swing.JTextField FeriasTextField;
     private javax.swing.JTextField HorasTotaisTextField;
     private javax.swing.JTextField HorasTrabalhadasTextField;

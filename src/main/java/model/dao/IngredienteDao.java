@@ -91,6 +91,51 @@ public class IngredienteDao {
     }
     
     
+      public void delete(int IDIngr) throws SQLException, ClassNotFoundException {
+    Connection con = ConnectionFactory.getConnection();
+    PreparedStatement stmt = null;
+
+    try {
+        stmt = con.prepareStatement("DELETE FROM tableingrediente WHERE IDIngr = ?");
+        stmt.setInt(1, IDIngr);
+
+        int affectedRows = stmt.executeUpdate();
+        if (affectedRows > 0) {
+            JOptionPane.showMessageDialog(null, "Ingrediente removido com sucesso");
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrediente não encontrado");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao remover ingrediente: " + ex);
+    } finally {
+        ConnectionFactory.closeConnection(con, stmt);
+    }
+}
+    
+        public void update(Ingredientes ingredientes) throws SQLException, ClassNotFoundException {
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            
+            try{
+                stmt = con.prepareStatement("UPDATE tableingrediente SET Produto = ?, Preco = ?, Quantidade = ?,Metrica = ?, Descricao = ?  WHERE IDIngr = ? AND User_codUsuario = ?");
+                stmt.setString(1, ingredientes.getProduto());
+                stmt.setDouble(2, ingredientes.getPreco());
+                stmt.setDouble(3, ingredientes.getQuantidade());
+                stmt.setString(4, ingredientes.getMetrica());
+                stmt.setString(5, ingredientes.getDescricao());
+                stmt.setInt(6, ingredientes.getIDIngr());
+                stmt.setInt(7, ingredientes.getUser_codUsuario());
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null,"produto atualizado com sucesso");
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"Erro ao atualizar" + ex);
+            }finally{
+                ConnectionFactory.closeConnection(con, stmt);
+            }
+    
+    
+         }
     
     
     

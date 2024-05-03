@@ -30,20 +30,11 @@ public class TelaCusto extends javax.swing.JFrame {
         
         DefaultTableModel modelo = (DefaultTableModel) CustoTable.getModel();
         TableColumnModel tcm = CustoTable.getColumnModel();
-        
-        int indiceDaColunaIDCUSTO = -1;
-    for (int i = 0; i < tcm.getColumnCount(); i++) {
-        if (tcm.getColumn(i).getHeaderValue().equals("IDCUSTO")) {
-            indiceDaColunaIDCUSTO = i;
-            break;
-        }
-    }
-        if (indiceDaColunaIDCUSTO != -1) {
-        TableColumn colunaIDCUSTO = tcm.getColumn(indiceDaColunaIDCUSTO);
-        tcm.removeColumn(colunaIDCUSTO);
-    }
-        CustoTable.setRowSorter(new TableRowSorter<>(modelo));
+        System.out.println("Number of columns: " + CustoTable.getColumnCount());
         listarCustoTable();
+    
+       
+        
     }
     public void listarCustoTable() throws SQLException, ClassNotFoundException{
       DefaultTableModel modelo = (DefaultTableModel) CustoTable.getModel();
@@ -166,6 +157,17 @@ public class TelaCusto extends javax.swing.JFrame {
                 .addGap(15, 15, 15))
         );
 
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         CustoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -176,45 +178,35 @@ public class TelaCusto extends javax.swing.JFrame {
             new String [] {
                 "Custos", "Valores", "Descrições", "IDCUSTO", "ID USUARIO"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                true, true, true, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+        ));
+        CustoTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CustoTableMouseClicked(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                CustoTableMouseReleased(evt);
+            }
+        });
+        CustoTable.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                CustoTableKeyReleased(evt);
             }
         });
         jScrollPane1.setViewportView(CustoTable);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(custReturnInicio))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -224,6 +216,8 @@ public class TelaCusto extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(custReturnInicio)
                 .addContainerGap())
@@ -270,7 +264,35 @@ public class TelaCusto extends javax.swing.JFrame {
     }//GEN-LAST:event_ExcluirCustoButtonActionPerformed
 
     private void updateCustoButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateCustoButton1ActionPerformed
-        // TODO add your handling code here:
+        if (CustoTable.getSelectedRow() != -1) {
+
+            try {
+                Custo custo = new Custo();
+                CustosDao dao = new CustosDao();
+                int idCusto = Integer.parseInt(CustoTable.getValueAt(CustoTable.getSelectedRow(), 3).toString());
+                int user_codUsuario = Integer.parseInt(CustoTable.getValueAt(CustoTable.getSelectedRow(), 4).toString());
+                
+                custo.setnomeCusto(NomeCustoTextField.getText());
+                custo.setvalorCusto(Double.parseDouble(ValorCustoTextField.getText()));
+                custo.setdescricaoCusto(DescricaoCustoTextField.getText());
+                custo.setIDCUSTO(idCusto);
+                custo.setUser_codUsuario(user_codUsuario);
+                
+                
+                dao.update(custo);
+                listarCustoTable();
+                
+                NomeCustoTextField.setText("");
+                ValorCustoTextField.setText("");
+                DescricaoCustoTextField.setText("");
+            JOptionPane.showMessageDialog(null, "Updating: " + custo.getnomeCusto() + ", " + custo.getvalorCusto() + ", " + custo.getdescricaoCusto() + ", " + custo.getIDCUSTO()+ ", " +custo.getUser_codUsuario());    
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                }
+                
     }//GEN-LAST:event_updateCustoButton1ActionPerformed
 
     private void AddCustoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddCustoButtonActionPerformed
@@ -284,15 +306,32 @@ public class TelaCusto extends javax.swing.JFrame {
             custo.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
             dao.create(custo);
             listarCustoTable();
+            
+            NomeCustoTextField.setText("");
+            ValorCustoTextField.setText("");
+            DescricaoCustoTextField.setText("");
+            
         } catch (SQLException | ClassNotFoundException ex) {
             Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_AddCustoButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-   
+    private void CustoTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustoTableMouseClicked
+         
+    }//GEN-LAST:event_CustoTableMouseClicked
+
+    private void CustoTableKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CustoTableKeyReleased
+     
+    }//GEN-LAST:event_CustoTableKeyReleased
+
+    private void CustoTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustoTableMouseReleased
+         if (CustoTable.getSelectedRow() != -1) {
+        NomeCustoTextField.setText(CustoTable.getValueAt(CustoTable.getSelectedRow(), 0).toString());
+        ValorCustoTextField.setText(CustoTable.getValueAt(CustoTable.getSelectedRow(), 1).toString());
+        DescricaoCustoTextField.setText(CustoTable.getValueAt(CustoTable.getSelectedRow(), 2).toString());
+        }
+    }//GEN-LAST:event_CustoTableMouseReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddCustoButton;
@@ -307,4 +346,5 @@ public class TelaCusto extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton updateCustoButton1;
     // End of variables declaration//GEN-END:variables
+
 }

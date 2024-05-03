@@ -72,5 +72,24 @@ public class RecebimentoDao {
     }
     return recebimentos;
     }
-}
+    public void delete(int IDReb) throws SQLException, ClassNotFoundException {
+    Connection con = ConnectionFactory.getConnection();
+    PreparedStatement stmt = null;
 
+    try {
+        stmt = con.prepareStatement("DELETE FROM tablerecebimentos WHERE IDReb = ?");
+        stmt.setInt(1, IDReb);
+
+        int affectedRows = stmt.executeUpdate();
+        if (affectedRows > 0) {
+            JOptionPane.showMessageDialog(null, "removido com sucesso");
+        } else {
+            JOptionPane.showMessageDialog(null, "Id não encontrado");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao remover: " + ex);
+    } finally {
+        ConnectionFactory.closeConnection(con, stmt);
+    }
+   }
+}

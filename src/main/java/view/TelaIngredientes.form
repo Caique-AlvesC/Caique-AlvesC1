@@ -52,8 +52,6 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="UpdateButtonTabIng" min="-2" pref="150" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="IngredReturnInicio" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               </Group>
@@ -67,10 +65,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="UpdateButtonTabIng" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="IngredReturnInicio" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="IngredReturnInicio" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="494" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
@@ -79,14 +74,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="UpdateButtonTabIng">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Atualizar Tabela"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UpdateButtonTabIngActionPerformed"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JButton" name="IngredReturnInicio">
           <Properties>
             <Property name="text" type="java.lang.String" value="Voltar"/>
@@ -158,6 +145,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="IngredientesTableMouseReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -181,7 +171,13 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="metricaBox" min="-2" pref="119" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="salvarAddIngred" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="salvarAddIngred" min="-2" pref="209" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="UpdateButtonTabIng" min="-2" pref="228" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="deleteIngButton" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
@@ -204,7 +200,11 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="descriptionTextField" min="-2" pref="144" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="salvarAddIngred" min="-2" pref="31" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="salvarAddIngred" pref="31" max="32767" attributes="0"/>
+                      <Component id="UpdateButtonTabIng" max="32767" attributes="0"/>
+                      <Component id="deleteIngButton" max="32767" attributes="0"/>
+                  </Group>
                   <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -279,6 +279,22 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="produtoTextFieldActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="UpdateButtonTabIng">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Atualizar Tabela"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UpdateButtonTabIngActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="deleteIngButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Excluir Ingrediente"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteIngButtonActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

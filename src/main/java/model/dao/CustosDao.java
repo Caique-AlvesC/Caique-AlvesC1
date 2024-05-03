@@ -79,26 +79,21 @@ public class CustosDao {
     PreparedStatement stmt = null;
 
     try {
-        // Prepara a query de UPDATE com os devidos campos a serem atualizados
-        stmt = con.prepareStatement("UPDATE tablecustosfixos SET nomeCusto = ?, valorCusto = ?, descricaoCusto = ? WHERE IDCUSTO = ?");
-        // Define os valores para cada campo com base no objeto custo
+        
+        stmt = con.prepareStatement("UPDATE tablecustosfixos SET nomeCusto = ?, valorCusto = ?, descricaoCusto = ? WHERE IDCUSTO = ? AND User_codUsuario = ?");
+        
         stmt.setString(1, custo.getnomeCusto());
         stmt.setDouble(2, custo.getvalorCusto());
         stmt.setString(3, custo.getdescricaoCusto());
         stmt.setInt(4, custo.getIDCUSTO());
-
-        // Executa a query de UPDATE
-        int affectedRows = stmt.executeUpdate();
-        // Verifica se a atualização foi bem-sucedida
-        if (affectedRows > 0) {
-            JOptionPane.showMessageDialog(null, "Custo atualizado com sucesso");
-        } else {
-            JOptionPane.showMessageDialog(null, "Custo não encontrado");
-        }
+        stmt.setInt(5, custo.getUser_codUsuario());
+        stmt.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Custo atualizado com sucesso");
+        
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Erro ao atualizar custo: " + ex);
     } finally {
-        // Fecha conexões
+        
         ConnectionFactory.closeConnection(con, stmt);
     }
 }
