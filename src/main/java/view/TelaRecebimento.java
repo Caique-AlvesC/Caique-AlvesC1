@@ -193,6 +193,13 @@ try {
             recebimento1.setFerias(Double.parseDouble(FeriasTextField.getText()));
             recebimento1.setHorasTrabalhadas(Double.parseDouble(HorasTrabalhadasTextField.getText()));
             recebimento1.setHorasTotais(Double.parseDouble(HorasTotaisTextField.getText()));
+            
+            recebimento1.CalcValorHora();
+            recebimento1.CalcValorHoraD();
+            recebimento1.CalcValorHoraF();
+            recebimento1.CalcValorMinuto();
+            recebimento1.CalcValorMinutoD();
+            recebimento1.CalcValorMinutoF();
             recebimento1.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
             dao.create(recebimento1);
             listarTableRecebimento();

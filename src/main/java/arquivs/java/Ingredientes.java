@@ -2,14 +2,20 @@
 package arquivs.java;
 
 public class Ingredientes {
+    private static Ingredientes instance;
     private String produto;
     private double preco;
     private double quantidade;
     private String metrica;
     private String descricao;
     private int IDIngr;
-    private int User_codUsuario;	
-   
+    private int User_codUsuario;
+    public static Ingredientes getInstance(){
+        if(instance == null){
+            instance = new Ingredientes();
+        }
+        return instance;
+    }
 public Ingredientes(){
         this.produto = produto;
         this.preco = preco;
@@ -20,6 +26,7 @@ public Ingredientes(){
         this.User_codUsuario = User_codUsuario;
         
 }
+    
 
     public int getIDIngr() {
         return IDIngr;
@@ -37,9 +44,6 @@ public Ingredientes(){
         this.User_codUsuario = User_codUsuario;
     }
 
-    Ingredientes(String string, double aDouble, double aDouble0, String string0, String string1) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 //Getters
 public String getProduto(){
         return produto;
@@ -79,15 +83,5 @@ public void setDescricao(String descricao){
     }
 
     //---------------------------------------------------------------------
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+  
 }

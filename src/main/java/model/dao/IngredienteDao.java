@@ -74,16 +74,27 @@ public class IngredienteDao {
         return ingredientes;
     }
    
-    public List<String> fetchAllProducts() throws SQLException, ClassNotFoundException {
+public List<Ingredientes> fetchAllProducts() throws SQLException, ClassNotFoundException {
         Connection con = ConnectionFactory.getConnection();
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<String> products = new ArrayList<>();
+        int codUsuario = Usuario.getInstance().getCodUsuario();
+        List<Ingredientes> products = new ArrayList<>();
         try{
-            stmt = con.prepareStatement("SELECT * FROM tableingrediente");
+            stmt = con.prepareStatement("SELECT * FROM tableingrediente WHERE User_codUsuario = ?");
+            stmt.setInt(1, codUsuario);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                products.add(rs.getString("Produto"));
+               Ingredientes ingrediente = new Ingredientes();
+                ingrediente.setProduto(rs.getString("Produto"));
+                ingrediente.setPreco(rs.getDouble("Preco"));
+                ingrediente.setQuantidade(rs.getDouble("Quantidade"));
+                ingrediente.setMetrica(rs.getString("Metrica"));
+                ingrediente.setDescricao(rs.getString("Descricao"));
+                ingrediente.setIDIngr(rs.getInt("IDIngr"));
+                ingrediente.setUser_codUsuario(rs.getInt("User_codUsuario"));
+                products.add(ingrediente); 
+   
             }
         } catch (SQLException e) {
         }
@@ -137,7 +148,19 @@ public class IngredienteDao {
     
          }
     
+
+    
+    
+         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
     
     
     
-    }
