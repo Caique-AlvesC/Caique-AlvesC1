@@ -68,6 +68,7 @@ public class IngredienteUseDao {
                 ingredieUse.setQuantidadeAtual(rs.getDouble("quantidadeAtual"));
                 ingredieUse.setMetricaUsoAtual(rs.getString("metricaUsoAtual"));
                 ingredieUse.setIngredietCustoAtual(rs.getDouble("IngredietCustoAtual"));
+                ingredieUse.setIdIngUsado(rs.getInt("idIngUsado"));
                 ingredieUse.setIDIngr(rs.getInt("IDIngr"));
                 ingredieUse.setUser_codUsuario(rs.getInt("User_codUsuario"));
                 ingredieUse.setCod_Receita(rs.getString("cod_Receita"));
@@ -83,6 +84,27 @@ public class IngredienteUseDao {
         return ingredientesUse;
     }
         
+     public double listarSoma(String cod_Receita) throws ClassNotFoundException, SQLException {
+     Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        double totalCusto = 0;
         
+        try {
+        int codUsuario = Usuario.getInstance().getCodUsuario();
+        stmt = con.prepareStatement("SELECT SUM(IngredietCustoAtual) AS TotalCusto FROM tableingredientesrec WHERE User_codUsuario = ? AND cod_Receita = ?");
+        stmt.setInt(1, codUsuario);
+        stmt.setString(2, cod_Receita);
+        rs = stmt.executeQuery();
+
         
+        if (rs.next()) {
+            totalCusto = rs.getDouble("TotalCusto"); 
+        }}catch (SQLException ex) {
+        throw ex;
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return totalCusto;
+     }    
 }
