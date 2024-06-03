@@ -6,37 +6,43 @@ package view;
 
 import arquivs.java.Ingredientes;
 import arquivs.java.IngredientesUse;
+import arquivs.java.Recebimento1;
+import arquivs.java.Receita;
 import arquivs.java.Usuario;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ItemEvent;
-
-
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListCellRenderer;
-
-
 import javax.swing.JComboBox;
-
 import javax.swing.JFrame;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 import model.dao.IngredienteDao;
 import model.dao.IngredienteUseDao;
+import model.dao.ReceitaDao;
 
 
-/**
- *
- * @author Kaique Alves
- */
 public class TelaReceita_2 extends javax.swing.JFrame {
-    
-    public TelaReceita_2() throws SQLException, ClassNotFoundException {
+    private JTable receitasTable;
+    boolean isByHour;
+    String cod_Receita;
+    String hXm;
+    double totalAntLuc;
+    double custoFixo ;
+    double salario;
+    double decimoFerias ;
+    double custoIngTotal ;
+   
+    public TelaReceita_2(JTable receitasTable) throws SQLException, ClassNotFoundException {
         super("Tela de adicionar Receitas");
+        this.receitasTable = receitasTable;
         initComponents();
         this.setLocationRelativeTo(null);
         
@@ -53,8 +59,15 @@ public class TelaReceita_2 extends javax.swing.JFrame {
             Logger.getLogger(TelaReceita_2.class.getName()).log(Level.SEVERE, null, ex);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(TelaReceita_2.class.getName()).log(Level.SEVERE, null, ex);
-        }    
+        }
+            horMinComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                horMinComboBoxActionPerformed(evt);
+            }
+        });
+ 
 }
+            
     
     public void listarIngredietesReceitaTable(String cod_Receita) throws SQLException, ClassNotFoundException{
       DefaultTableModel modelo = (DefaultTableModel) IngredietesReceitaTable.getModel();
@@ -81,6 +94,8 @@ public class TelaReceita_2 extends javax.swing.JFrame {
             new TelaInicial().setVisible(true);
         });
     }
+    
+    
 private void loadIngredients() throws SQLException, ClassNotFoundException{
         IngredienteDao dao = new IngredienteDao();
     List<Ingredientes> products = dao.fetchAllProducts();
@@ -109,6 +124,17 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
     
     
     }
+
+private void updateTotalCostLabel() {
+    try {
+        IngredienteUseDao dao = new IngredienteUseDao(); // Create an instance of IngredienteUseDao
+        String cod_Receita = AddNomeReceitaTextField.getText(); // Get the recipe code
+        double totalCusto = dao.listarSoma(cod_Receita); // Use the listarSoma method from IngredienteUseDao
+        custoTotalTextLabel.setText(String.format("Total Custo: %.2f", totalCusto)); // Update the JLabel with the total cost
+    } catch (SQLException | ClassNotFoundException ex) {
+        Logger.getLogger(TelaReceita_2.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
     
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -121,18 +147,21 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
         jScrollPane1 = new javax.swing.JScrollPane();
         IngredietesReceitaTable = new javax.swing.JTable();
         TempoGastoTextField = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        horMinComboBox = new javax.swing.JComboBox<>();
         DTTempoGastoLabel = new javax.swing.JLabel();
         SalarioTempoGastoLabel1 = new javax.swing.JLabel();
-        MargemDescTextField = new javax.swing.JTextField();
-        DescontoLabel = new javax.swing.JLabel();
         MargemLucroTextField1 = new javax.swing.JTextField();
         LucroLabel = new javax.swing.JLabel();
         ReceitaValorFinalLabel = new javax.swing.JLabel();
-        SalvarReceitaButton = new javax.swing.JButton();
+        AtualizarReceitaButton = new javax.swing.JButton();
         metricaRecComboBox = new javax.swing.JComboBox<>();
-        custoTotalTextLabel = new javax.swing.JLabel();
         addReceita = new javax.swing.JButton();
+        custoTotalTextLabel = new javax.swing.JTextField();
+        totalAntLucro = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        custoFixoTextField = new javax.swing.JLabel();
+        calcFinal = new javax.swing.JButton();
+        SalvarReceitaButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -181,12 +210,22 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
         jScrollPane1.setViewportView(IngredietesReceitaTable);
 
         TempoGastoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Tempo gasto:"));
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Horas", "Minutos", " " }));
-        jComboBox1.setBorder(javax.swing.BorderFactory.createTitledBorder("Tempo gasto em :"));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        TempoGastoTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                TempoGastoTextFieldActionPerformed(evt);
+            }
+        });
+
+        horMinComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Horas", "Minutos", " " }));
+        horMinComboBox.setBorder(javax.swing.BorderFactory.createTitledBorder("Tempo gasto em :"));
+        horMinComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                horMinComboBoxFocusLost(evt);
+            }
+        });
+        horMinComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                horMinComboBoxActionPerformed(evt);
             }
         });
 
@@ -194,17 +233,23 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
 
         SalarioTempoGastoLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Salário pelo tempo de produção:"));
 
-        MargemDescTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Margem de Desconto:"));
-
-        DescontoLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor de Desconto:"));
-
         MargemLucroTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder("Margem de Lucro:"));
+        MargemLucroTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                MargemLucroTextField1FocusLost(evt);
+            }
+        });
 
         LucroLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Receber de Lucro:"));
 
         ReceitaValorFinalLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor final do Produto :"));
 
-        SalvarReceitaButton.setText("Salvar");
+        AtualizarReceitaButton.setText("Atualizar");
+        AtualizarReceitaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AtualizarReceitaButtonActionPerformed(evt);
+            }
+        });
 
         metricaRecComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Escolha uma opção de Metrica>", "Ml(mililitros)", "L (Litros)", "g (gramas)", "kg (Quilos)", "U (Unidades)" }));
         metricaRecComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -213,13 +258,45 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
             }
         });
 
-        custoTotalTextLabel.setFont(new java.awt.Font("Segoe UI", 0, 36)); // NOI18N
-        custoTotalTextLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Custo total dos Ingredientes :"));
-
         addReceita.setText("Add");
         addReceita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addReceitaActionPerformed(evt);
+            }
+        });
+
+        custoTotalTextLabel.setEditable(false);
+        custoTotalTextLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        custoTotalTextLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Custo total de ingredientes usados :"));
+        custoTotalTextLabel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                custoTotalTextLabelActionPerformed(evt);
+            }
+        });
+
+        totalAntLucro.setEditable(false);
+        totalAntLucro.setBorder(javax.swing.BorderFactory.createTitledBorder("Total até aqui:"));
+
+        jButton1.setText("Calcular Gasto por tempo:");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        custoFixoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Custo fixo de :"));
+
+        calcFinal.setText("Calcular lucro e valor final");
+        calcFinal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                calcFinalActionPerformed(evt);
+            }
+        });
+
+        SalvarReceitaButton1.setText("Salvar");
+        SalvarReceitaButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SalvarReceitaButton1ActionPerformed(evt);
             }
         });
 
@@ -230,47 +307,55 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(AddNomeReceitaTextField)
-                        .addGap(18, 18, 18)
-                        .addComponent(receitaReturn))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(AddNomeReceitaTextField)
+                                .addGap(18, 18, 18)
+                                .addComponent(receitaReturn))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(IngredientesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(QuantIngredieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(metricaRecComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(addReceita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(IngredientesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(QuantIngredieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(metricaRecComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(addReceita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ReceitaValorFinalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(SalvarReceitaButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(AtualizarReceitaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(MargemLucroTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LucroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(calcFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(SalarioTempoGastoLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(DTTempoGastoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(custoFixoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(totalAntLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(7, 7, 7))))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(TempoGastoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(SalarioTempoGastoLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(DTTempoGastoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(MargemLucroTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(LucroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(MargemDescTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(DescontoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(ReceitaValorFinalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(SalvarReceitaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 12, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(custoTotalTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(custoTotalTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(TempoGastoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(horMinComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,26 +372,31 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
                     .addComponent(addReceita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(custoTotalTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(custoTotalTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(TempoGastoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(horMinComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(custoFixoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SalarioTempoGastoLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(DTTempoGastoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+                    .addComponent(totalAntLucro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(TempoGastoTextField)
-                        .addComponent(jComboBox1)
-                        .addComponent(SalarioTempoGastoLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(DTTempoGastoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(DescontoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(MargemLucroTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(LucroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(MargemDescTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(calcFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(ReceitaValorFinalLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SalvarReceitaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(ReceitaValorFinalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(SalvarReceitaButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(AtualizarReceitaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(180, 180, 180))
         );
 
         pack();
@@ -338,9 +428,10 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
         String metricaSelect = (String)metricaRecComboBox.getSelectedItem();        // TODO add your handling code here:
     }//GEN-LAST:event_metricaRecComboBoxActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void horMinComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_horMinComboBoxActionPerformed
+        hXm = (String) horMinComboBox.getSelectedItem();
+        isByHour = hXm.equals("Horas");  
+    }//GEN-LAST:event_horMinComboBoxActionPerformed
 
     private void addReceitaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addReceitaActionPerformed
     try {
@@ -350,6 +441,7 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
             IngredienteUseDao dao = new IngredienteUseDao();
             dao.createUse(ingredientesUse);
             listarIngredietesReceitaTable(AddNomeReceitaTextField.getText());
+            updateTotalCostLabel();
         }
     } catch (SQLException ex) {
         Logger.getLogger(TelaReceita_2.class.getName()).log(Level.SEVERE, "Database error", ex);
@@ -360,27 +452,143 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
     }
     }//GEN-LAST:event_addReceitaActionPerformed
 
+    private void custoTotalTextLabelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_custoTotalTextLabelActionPerformed
+
+    }//GEN-LAST:event_custoTotalTextLabelActionPerformed
+
+    private void TempoGastoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TempoGastoTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TempoGastoTextFieldActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    calculateAndUpdateLabels(isByHour);
+try {
+        // Obtenha os textos dos campos e remova qualquer texto não numérico
+        String custoFixoText = custoFixoTextField.getText().replace("Custo fixo: ", "").trim().replace(",", ".");
+        String salarioText = SalarioTempoGastoLabel1.getText().replace("Salário: ", "").trim().replace(",", ".");
+        String decimoFeriasText = DTTempoGastoLabel.getText().replace("Décimo e Férias: ", "").trim().replace(",", ".");
+        String custoIngTotalText = custoTotalTextLabel.getText().replace("Total Custo:", "").trim().replace(",",".");
+
+        // Converta os textos para double
+       custoFixo = Double.parseDouble(custoFixoText);
+       salario = Double.parseDouble(salarioText);
+       decimoFerias = Double.parseDouble(decimoFeriasText);
+       custoIngTotal = Double.parseDouble(custoIngTotalText);
+
+        // Calcule a soma
+        totalAntLuc = custoFixo + salario + decimoFerias + custoIngTotal ;
+
+        // Defina o valor calculado no campo totalAntLucro
+        totalAntLucro.setText(String.format("%.2f", totalAntLuc));
+
+    } catch (NumberFormatException e) {
+        // Trate o erro de formato de número
+        System.err.println("Erro ao converter valores para número: " + e.getMessage());
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void horMinComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_horMinComboBoxFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_horMinComboBoxFocusLost
+
+    private void MargemLucroTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MargemLucroTextField1FocusLost
+
+    }//GEN-LAST:event_MargemLucroTextField1FocusLost
+ double lucro;
+ double saldoLucro;
+ double totalFinal;
+    private void calcFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcFinalActionPerformed
+                try {
+                    lucro = Double.parseDouble(MargemLucroTextField1.getText().trim().replace(",", "."));
+                    System.out.println("Lucro de : " + lucro + "%");
+                    saldoLucro = totalAntLuc / (1 - (lucro / 100));
+                    LucroLabel.setText(String.format("%.2f", saldoLucro));
+                    totalFinal = totalAntLuc + saldoLucro;
+                    ReceitaValorFinalLabel.setText(String.format("Preço final de : %.2f", totalFinal));
+                } catch (NumberFormatException ex) {
+                    System.err.println("Erro ao converter lucro: " + ex.getMessage());
+                }
+
+    }//GEN-LAST:event_calcFinalActionPerformed
+
+    private void AtualizarReceitaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AtualizarReceitaButtonActionPerformed
+if (receitasTable.getSelectedRow() != -1) {
+    try {
+        Receita receita = new Receita();
+        ReceitaDao dao = new ReceitaDao();
+        int cod_receita2 = Integer.parseInt(receitasTable.getValueAt(receitasTable.getSelectedRow(), 4).toString());
+        receita.setCod_Receita(AddNomeReceitaTextField.getText());
+        receita.setCusto_total_ingredie(custoIngTotal);
+        receita.setTempo_Gasto(timeSpent);
+        receita.setMod_tempo(horMinComboBox.getSelectedItem().toString());
+        receita.setSalario_aReceber(salario);
+        receita.setA13_ferias(decimoFerias);
+        receita.setCusto_Fixo(custoFixo);
+        receita.setTotalAntsLucro(totalAntLuc);
+        receita.setMargem_Lucro(lucro);
+        receita.setReceber_Lucro(saldoLucro);
+        receita.setReceber_Total(totalFinal);
+        receita.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
+        dao.update(receita);
+        JOptionPane.showMessageDialog(this, "Receita atualizada com sucesso!");
+    } catch (SQLException ex) {
+        Logger.getLogger(TelaReceita_2.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(TelaReceita_2.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, "Erro ao atualizar a receita.");
+    }
+        }
+    }//GEN-LAST:event_AtualizarReceitaButtonActionPerformed
+
+    private void SalvarReceitaButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SalvarReceitaButton1ActionPerformed
+    try {
+            Receita receita = new Receita();
+            ReceitaDao dao = new ReceitaDao();
+            receita.setCod_Receita(AddNomeReceitaTextField.getText());
+            receita.setCusto_total_ingredie(custoIngTotal);
+            receita.setTempo_Gasto(timeSpent);
+            receita.setMod_tempo(horMinComboBox.getSelectedItem().toString());
+            receita.setSalario_aReceber(salario);
+            receita.setA13_ferias(decimoFerias);
+            receita.setCusto_Fixo(custoFixo);
+            receita.setTotalAntsLucro(totalAntLuc);
+            receita.setMargem_Lucro(lucro);
+            receita.setReceber_Lucro(saldoLucro);
+            receita.setReceber_Total(totalFinal);
+            receita.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
+            
+            dao.create(receita);
+
+     } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(TelaReceita_2.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_SalvarReceitaButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AddNomeReceitaTextField;
+    private javax.swing.JButton AtualizarReceitaButton;
     private javax.swing.JLabel DTTempoGastoLabel;
-    private javax.swing.JLabel DescontoLabel;
     private javax.swing.JComboBox IngredientesComboBox;
     private javax.swing.JTable IngredietesReceitaTable;
     private javax.swing.JLabel LucroLabel;
-    private javax.swing.JTextField MargemDescTextField;
     private javax.swing.JTextField MargemLucroTextField1;
     private javax.swing.JTextField QuantIngredieTextField;
     private javax.swing.JLabel ReceitaValorFinalLabel;
     private javax.swing.JLabel SalarioTempoGastoLabel1;
-    private javax.swing.JButton SalvarReceitaButton;
+    private javax.swing.JButton SalvarReceitaButton1;
     private javax.swing.JTextField TempoGastoTextField;
     private javax.swing.JButton addReceita;
-    private javax.swing.JLabel custoTotalTextLabel;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JButton calcFinal;
+    private javax.swing.JLabel custoFixoTextField;
+    private javax.swing.JTextField custoTotalTextLabel;
+    private javax.swing.JComboBox<String> horMinComboBox;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> metricaRecComboBox;
     private javax.swing.JButton receitaReturn;
+    private javax.swing.JTextField totalAntLucro;
     // End of variables declaration//GEN-END:variables
 
 private IngredientesUse createIngredientesUse(Ingredientes selectedIngredient) {
@@ -410,12 +618,77 @@ private double calculateCost(double preco, double quantidade, String metrica, St
         return (preco / (quantidade * 1000)) * quantidadeAtual;
     } else if ("g (gramas)".equals(metrica) && "kg (Quilos)".equals(metricaRec)) {
         return (preco / (quantidade / 1000)) * quantidadeAtual;
-    } else if ("L (Litros)".equals(metrica) && "Ml(mililitros)".equals(metricaRec)) {
+    } else if ("L (Litros)".equals(metrica) && "Ml (mililitros)".equals(metricaRec)) {
         return (preco / (quantidade * 1000)) * quantidadeAtual;
-    } else if ("Ml(mililitros)".equals(metrica) && "L (Litros)".equals(metricaRec)) {
+    } else if ("Ml (mililitros)".equals(metrica) && "L (Litros)".equals(metricaRec)) {
         return (preco / (quantidade / 1000)) * quantidadeAtual;
     } else {
         throw new IllegalArgumentException("Métricas não compatíveis ou não implementadas.");
+    }
+}
+int timeSpent;
+private void calculateAndUpdateLabels(boolean isByHour) {
+    try {
+        timeSpent = Integer.parseInt(TempoGastoTextField.getText());
+        IngredienteUseDao dao = new IngredienteUseDao();
+        double totalCusto = dao.listarSoma(cod_Receita); // Calculate total cost
+        List<Recebimento1> recebimentosHM = dao.calculoHorasxMinutos();
+
+        Recebimento1 recebimento = recebimentosHM.get(0);
+
+
+        double recebimentosS;
+        double recebimentosD;
+        double recebimentosF;
+        double recebimentosCH;
+        double recebimentosCM;
+        double salarioRec;
+        double decimoFeriasRec;
+        double custoFixoAt;
+
+        if (isByHour) {
+            recebimentosS = recebimento.getValorHora();
+            recebimentosD = recebimento.getValorHoraD();
+            recebimentosF = recebimento.getValorHoraF();
+            recebimentosCH = recebimento.getCustoFixoH();
+            salarioRec = recebimentosS * timeSpent;
+            decimoFeriasRec = (recebimentosD * timeSpent) + (recebimentosF * timeSpent);
+            custoFixoAt = recebimentosCH * timeSpent;
+
+            // Adicionando logs para depuração
+            System.out.println("Recebimentos Hora: " + recebimentosS);
+            System.out.println("Custo Fixo Hora: " + recebimentosCH);
+            System.out.println("Time Spent: " + timeSpent);
+            System.out.println("Custo Fixo At (Horas): " + custoFixoAt);
+        } else {
+            recebimentosS = recebimento.getValorMinuto();
+            recebimentosD = recebimento.getValorMinutoD();
+            recebimentosF = recebimento.getValorMinutoF();
+            recebimentosCM = recebimento.getCustoFixoM();
+            salarioRec = recebimentosS * timeSpent;
+            decimoFeriasRec = (recebimentosD * timeSpent) + (recebimentosF * timeSpent);
+            custoFixoAt = recebimentosCM * timeSpent;
+
+            // Adicionando logs para depuração
+            System.out.println("Recebimentos Minuto: " + recebimentosS);
+            System.out.println("Custo Fixo Minuto: " + recebimentosCM);
+            System.out.println("Time Spent: " + timeSpent);
+            System.out.println("Custo Fixo At (Minutos): " + custoFixoAt);
+
+            // Verificação adicional
+            if (recebimentosCM == 0.0) {
+                System.out.println("Erro: custoFixoM está zerado.");
+            }
+        }
+
+        SalarioTempoGastoLabel1.setText(String.format("Salário: %.2f", salarioRec));
+        DTTempoGastoLabel.setText(String.format("Décimo e Férias: %.2f", decimoFeriasRec));
+        custoFixoTextField.setText(String.format("Custo fixo: %.2f", custoFixoAt));
+
+    } catch (SQLException | ClassNotFoundException ex) {
+        Logger.getLogger(TelaReceita_2.class.getName()).log(Level.SEVERE, null, ex);
+    } catch (NumberFormatException ex) {
+        Logger.getLogger(TelaReceita_2.class.getName()).log(Level.SEVERE, "Invalid time input", ex);
     }
 }
 }

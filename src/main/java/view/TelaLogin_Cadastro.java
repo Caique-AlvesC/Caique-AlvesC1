@@ -39,6 +39,7 @@ public class TelaLogin_Cadastro extends javax.swing.JFrame {
         SenhaCadTextField = new javax.swing.JTextField();
         SenhaCadTextField2 = new javax.swing.JTextField();
         CadLoginButton = new javax.swing.JButton();
+        Return = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,6 +56,13 @@ public class TelaLogin_Cadastro extends javax.swing.JFrame {
             }
         });
 
+        Return.setText("Voltar");
+        Return.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReturnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -67,6 +75,10 @@ public class TelaLogin_Cadastro extends javax.swing.JFrame {
                     .addComponent(loginCadTextField)
                     .addComponent(SenhaCadTextField2))
                 .addContainerGap(86, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Return)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -79,7 +91,9 @@ public class TelaLogin_Cadastro extends javax.swing.JFrame {
                 .addComponent(SenhaCadTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(CadLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addComponent(Return)
+                .addContainerGap())
         );
 
         pack();
@@ -109,9 +123,17 @@ public class TelaLogin_Cadastro extends javax.swing.JFrame {
         
     }//GEN-LAST:event_CadLoginButtonActionPerformed
 
+    private void ReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnActionPerformed
+        this.dispose();
+        java.awt.EventQueue.invokeLater(() -> {
+            new TelaLogin().setVisible(true);
+        });
+    }//GEN-LAST:event_ReturnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton CadLoginButton;
+    private javax.swing.JButton Return;
     private javax.swing.JTextField SenhaCadTextField;
     private javax.swing.JTextField SenhaCadTextField2;
     private javax.swing.JTextField loginCadTextField;

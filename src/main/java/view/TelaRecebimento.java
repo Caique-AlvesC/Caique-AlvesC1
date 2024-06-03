@@ -17,12 +17,12 @@ public class TelaRecebimento extends javax.swing.JFrame{
         super("Tela de Recebimentos");
         initComponents();
         this.setLocationRelativeTo(null);
-        DefaultTableModel modelo = (DefaultTableModel) TableRecebimento.getModel();
-        TableRecebimento.setRowSorter(new TableRowSorter (modelo));
-        listarTableRecebimento(); 
+        DefaultTableModel modelo = (DefaultTableModel) tablerecebimentos.getModel();
+        tablerecebimentos.setRowSorter(new TableRowSorter (modelo));
+        listartablerecebimentos(); 
 }
-    public void listarTableRecebimento() throws SQLException, ClassNotFoundException{
-      DefaultTableModel modelo = (DefaultTableModel) TableRecebimento.getModel();
+    public void listartablerecebimentos() throws SQLException, ClassNotFoundException{
+      DefaultTableModel modelo = (DefaultTableModel) tablerecebimentos.getModel();
       modelo.setNumRows(0);
       RecebimentoDao rdao = new RecebimentoDao();
       for(Recebimento1 recebimento1: rdao.listar()){
@@ -46,7 +46,7 @@ public class TelaRecebimento extends javax.swing.JFrame{
         HorasTrabalhadasTextField = new javax.swing.JTextField();
         HorasTotaisTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TableRecebimento = new javax.swing.JTable();
+        tablerecebimentos = new javax.swing.JTable();
         back = new javax.swing.JButton();
         save = new javax.swing.JButton();
         DelRebButton = new javax.swing.JButton();
@@ -78,7 +78,7 @@ public class TelaRecebimento extends javax.swing.JFrame{
 
         HorasTotaisTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Horas trabalhadas totais"));
 
-        TableRecebimento.setModel(new javax.swing.table.DefaultTableModel(
+        tablerecebimentos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -90,12 +90,12 @@ public class TelaRecebimento extends javax.swing.JFrame{
                 "Salário", "Décimo Terceiro", "Férias", "Horas Trabalhadas", "Horas Totais", "ID", "ID USUARIO"
             }
         ));
-        TableRecebimento.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablerecebimentos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                TableRecebimentoMouseReleased(evt);
+                tablerecebimentosMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(TableRecebimento);
+        jScrollPane1.setViewportView(tablerecebimentos);
 
         back.setText("voltar");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -141,7 +141,7 @@ public class TelaRecebimento extends javax.swing.JFrame{
                                 .addComponent(HorasTrabalhadasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(HorasTotaisTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                                 .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(DelRebButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(22, 22, 22))
@@ -202,7 +202,7 @@ try {
             recebimento1.CalcValorMinutoF();
             recebimento1.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
             dao.create(recebimento1);
-            listarTableRecebimento();
+            listartablerecebimentos();
             
             salarioTextField.setText("");
             DecimoTerceiroTextField.setText("");
@@ -219,9 +219,9 @@ try {
     }//GEN-LAST:event_FeriasTextFieldActionPerformed
 
     private void DelRebButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DelRebButtonActionPerformed
-        if (TableRecebimento.getSelectedRow() != -1) {
-        int selectedRow = TableRecebimento.getSelectedRow();
-        DefaultTableModel modelo = (DefaultTableModel) TableRecebimento.getModel();
+        if (tablerecebimentos.getSelectedRow() != -1) {
+        int selectedRow = tablerecebimentos.getSelectedRow();
+        DefaultTableModel modelo = (DefaultTableModel) tablerecebimentos.getModel();
         int IDReb = Integer.parseInt(modelo.getValueAt(selectedRow, 5).toString());
 
         RecebimentoDao dao = new RecebimentoDao();
@@ -246,15 +246,15 @@ try {
     }
     }//GEN-LAST:event_DelRebButtonActionPerformed
 
-    private void TableRecebimentoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableRecebimentoMouseReleased
-       if (TableRecebimento.getSelectedRow() != -1) {
-        salarioTextField.setText(TableRecebimento.getValueAt(TableRecebimento.getSelectedRow(), 0).toString());
-        DecimoTerceiroTextField.setText(TableRecebimento.getValueAt(TableRecebimento.getSelectedRow(), 1).toString());
-        FeriasTextField.setText(TableRecebimento.getValueAt(TableRecebimento.getSelectedRow(), 2).toString());
-        HorasTrabalhadasTextField.setText(TableRecebimento.getValueAt(TableRecebimento.getSelectedRow(), 3).toString());
-        HorasTotaisTextField.setText(TableRecebimento.getValueAt(TableRecebimento.getSelectedRow(), 4).toString());
+    private void tablerecebimentosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablerecebimentosMouseReleased
+       if (tablerecebimentos.getSelectedRow() != -1) {
+        salarioTextField.setText(tablerecebimentos.getValueAt(tablerecebimentos.getSelectedRow(), 0).toString());
+        DecimoTerceiroTextField.setText(tablerecebimentos.getValueAt(tablerecebimentos.getSelectedRow(), 1).toString());
+        FeriasTextField.setText(tablerecebimentos.getValueAt(tablerecebimentos.getSelectedRow(), 2).toString());
+        HorasTrabalhadasTextField.setText(tablerecebimentos.getValueAt(tablerecebimentos.getSelectedRow(), 3).toString());
+        HorasTotaisTextField.setText(tablerecebimentos.getValueAt(tablerecebimentos.getSelectedRow(), 4).toString());
        }
-    }//GEN-LAST:event_TableRecebimentoMouseReleased
+    }//GEN-LAST:event_tablerecebimentosMouseReleased
 
 
 
@@ -264,7 +264,7 @@ try {
     private javax.swing.JTextField FeriasTextField;
     private javax.swing.JTextField HorasTotaisTextField;
     private javax.swing.JTextField HorasTrabalhadasTextField;
-    private javax.swing.JTable TableRecebimento;
+    private javax.swing.JTable tablerecebimentos;
     private javax.swing.JButton back;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField salarioTextField;

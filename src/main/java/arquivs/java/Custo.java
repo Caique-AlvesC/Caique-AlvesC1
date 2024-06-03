@@ -10,6 +10,7 @@ public class Custo {
     private String descricaoCusto;
     private int IDCUSTO;
     private int User_codUsuario;
+    
 
    
     
@@ -20,6 +21,7 @@ public Custo() {
     this.IDCUSTO = IDCUSTO;
     this.User_codUsuario = User_codUsuario;
 }    
+
    Custo(String string, double aDouble, String string0, int aInteger){
        throw new UnsupportedOperationException("Not supported yet.");
    } 

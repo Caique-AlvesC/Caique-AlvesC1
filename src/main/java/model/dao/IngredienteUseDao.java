@@ -4,8 +4,8 @@
  */
 package model.dao;
 
-import arquivs.java.Ingredientes;
 import arquivs.java.IngredientesUse;
+import arquivs.java.Recebimento1;
 import arquivs.java.Usuario;
 import connection.ConnectionFactory;
 import java.sql.Connection;
@@ -106,5 +106,91 @@ public class IngredienteUseDao {
             ConnectionFactory.closeConnection(con, stmt, rs);
         }
         return totalCusto;
-     }    
+     }
+     
+    public List<Recebimento1> calculoHorasxMinutos() throws SQLException, ClassNotFoundException {
+    Connection con = ConnectionFactory.getConnection();
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    List<Recebimento1> recebimentos = new ArrayList<>();
+    try {
+        int codUsuario = Usuario.getInstance().getCodUsuario();
+        stmt = con.prepareStatement("SELECT * FROM tablerecebimentos WHERE User_codUsuario = ?");
+        stmt.setInt(1, codUsuario);
+        rs = stmt.executeQuery();
+
+        while (rs.next()) {
+            Recebimento1 recebimentos1 = new Recebimento1();
+            recebimentos1.setValorHora(rs.getDouble("valorHora"));
+            recebimentos1.setValorMinuto(rs.getDouble("valorMinuto"));
+            recebimentos1.setValorHoraD(rs.getDouble("valorHoraD"));
+            recebimentos1.setValorMinutoD(rs.getDouble("valorMinutoD"));
+            recebimentos1.setValorHoraF(rs.getDouble("valorHoraF"));
+            recebimentos1.setValorMinutoF(rs.getDouble("valorMinutoF"));
+            recebimentos1.setCustoFixoH(rs.getDouble("custoFixoH"));
+            recebimentos1.setCustoFixoM(rs.getDouble("custoFixoM"));
+            recebimentos1.setUser_codUsuario(rs.getInt("User_codUsuario"));
+            recebimentos.add(recebimentos1);
+
+            // Adicionando logs para depuração
+            System.out.println("Valor Hora: " + rs.getDouble("valorHora"));
+            System.out.println("Custo Fixo Hora: " + rs.getDouble("custoFixoH"));
+            System.out.println("Custo Fixo Minuto: " + rs.getDouble("custoFixoM"));
+        }
+
+        return recebimentos;
+
+    } finally {
+        ConnectionFactory.closeConnection(con, stmt, rs);
+    }
+}
+    
+    
+   public void delete(int IdIngUsado) throws SQLException, ClassNotFoundException {
+    Connection con = ConnectionFactory.getConnection();
+    PreparedStatement stmt = null;
+
+    try {
+        stmt = con.prepareStatement("DELETE FROM tableingredientesrec WHERE IdIngUsado = ?");
+        stmt.setInt(1, IdIngUsado);
+
+        int affectedRows = stmt.executeUpdate();
+        if (affectedRows > 0) {
+            JOptionPane.showMessageDialog(null, "Ingrediente removido com sucesso");
+        } else {
+            JOptionPane.showMessageDialog(null, "Ingrediente não encontrado");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao remover ingrediente: " + ex);
+    } finally {
+        ConnectionFactory.closeConnection(con, stmt);
+    }
+}
+    
+        public void update(IngredientesUse ingredientesUse) throws SQLException, ClassNotFoundException {
+            Connection con = ConnectionFactory.getConnection();
+            PreparedStatement stmt = null;
+            
+            try{
+                stmt = con.prepareStatement("UPDATE tableingredientesrec SET nomeIngrediente = ?, IngredietCustoAtual = ?, quantidadeAtual = ?,metricaUsoAtual = ?, IDIngr = ?  WHERE IdIngUsado = ? AND User_codUsuario = ? AND cod_Receita = ?");
+                stmt.setString(1, ingredientesUse.getNomeIngrediente());
+                stmt.setDouble(2, ingredientesUse.getIngredietCustoAtual());
+                stmt.setDouble(3, ingredientesUse.getQuantidadeAtual());
+                stmt.setString(4, ingredientesUse.getMetricaUsoAtual());
+                stmt.setInt(5, ingredientesUse.getIDIngr());
+                stmt.setInt(6, ingredientesUse.getIdIngUsado());
+                stmt.setInt(7, ingredientesUse.getUser_codUsuario());
+                stmt.setString(8, ingredientesUse.getCod_Receita());
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null,"produto atualizado com sucesso");
+            }
+            catch(SQLException ex){
+                JOptionPane.showMessageDialog(null,"Erro ao atualizar" + ex);
+            }finally{
+                ConnectionFactory.closeConnection(con, stmt);
+            }
+    
+    
+         }  
+    
 }

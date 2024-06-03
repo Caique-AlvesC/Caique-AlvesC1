@@ -5,7 +5,7 @@
 package model.dao;
 
 import arquivs.java.Custo;
-import arquivs.java.Ingredientes;
+import arquivs.java.Recebimento1;
 import arquivs.java.Usuario;
 import connection.ConnectionFactory;
 import java.sql.Connection;
@@ -119,6 +119,75 @@ public class CustosDao {
     }
 }
   
+       public double listarSoma() throws ClassNotFoundException, SQLException {
+     Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        double totalCustoFixo = 0;
+        
+        try {
+        int codUsuario = Usuario.getInstance().getCodUsuario();
+        stmt = con.prepareStatement("SELECT SUM(valorCusto) AS TotalCusto FROM tablecustosfixos WHERE User_codUsuario = ?");
+        stmt.setInt(1, codUsuario);
+        rs = stmt.executeQuery();
+
+        
+        if (rs.next()) {
+        totalCustoFixo = rs.getDouble("TotalCusto"); 
+        }}catch (SQLException ex) {
+        throw ex;
+        }finally{
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return totalCustoFixo;
+     }
+
+      public void CalcCustoFixoHxM(Recebimento1 recebimento1) throws SQLException, ClassNotFoundException {
+    Connection con = ConnectionFactory.getConnection();
+    PreparedStatement stmt = null;
+
+    try {
+        
+        stmt = con.prepareStatement("UPDATE tablerecebimentos SET custoFixo = ?, custoFixoH = ?, custoFixoM = ? WHERE User_codUsuario = ?");
+        
+        stmt.setDouble(1, recebimento1.getCustoFixo());
+        stmt.setDouble(2, recebimento1.getCustoFixoH());
+        stmt.setDouble(3, recebimento1.getCustoFixoM());
+        stmt.setInt(4, recebimento1.getUser_codUsuario());
+        stmt.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Custo atualizado com sucesso");
+        
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao atualizar custo: " + ex);
+    } finally {
+        
+        ConnectionFactory.closeConnection(con, stmt);
+    }
+} 
+
+    public double getHorasTrabalhadas(int codUsuario) throws SQLException, ClassNotFoundException {
+    Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        double horasTrabalhadas = 0;
+
+        try {
+            stmt = con.prepareStatement("SELECT horasTrabalhadas FROM tablerecebimentos WHERE User_codUsuario = ?");
+            stmt.setInt(1, codUsuario);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                horasTrabalhadas = rs.getDouble("horasTrabalhadas");
+            }
+        } catch (SQLException ex) {
+            throw ex;
+        } finally {
+            ConnectionFactory.closeConnection(con, stmt, rs);
+        }
+        return horasTrabalhadas;
+    }
+       
+       
   }
     
 

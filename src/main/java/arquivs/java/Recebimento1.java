@@ -13,62 +13,62 @@ public class Recebimento1 {
     private double valorMinutoD;
     private double valorHoraF;
     private double valorMinutoF;
-    
-    
+    private double custoFixo;
+    private double custoFixoH;
+    private double custoFixoM;
     private int IDReb;
     private int User_codUsuario;
     
-    public Recebimento1(){
-        this.salario = salario;
-        this.decimoTerceiro = decimoTerceiro;
-        this.ferias = ferias;
-        this.horasTrabalhadas = horasTrabalhadas;
-        this.horasTotais = horasTotais;
-        this.valorHora = CalcValorHora();
-        this.valorMinuto = CalcValorMinuto();
-        this.valorHoraD = CalcValorHoraD();
-        this.valorMinutoD = CalcValorMinutoD();
-        this.valorHoraF = CalcValorHoraF();
-        this.valorMinutoF = CalcValorMinutoF();
-        this.IDReb = IDReb;
-        this.User_codUsuario = User_codUsuario;
+    
+    
+
+    public Recebimento1() {
+    
     }
 
-    
-    
-    public double CalcValorHora(){
-        if (horasTotais ==0)return 0;
-        return salario /horasTotais; 
+
+    public double CalcValorCustoFixoH() {
+        if (horasTrabalhadas == 0) return 0;
+        return custoFixo / horasTrabalhadas;
     }
-    
-    public double CalcValorMinuto(){
-        if (horasTotais ==0)return 0;
-        return valorHora /60; 
+
+    public double CalcValorCustoFixoM() {
+        if (horasTrabalhadas == 0) return 0;
+        return CalcValorCustoFixoH() / 60;
     }
-    
-    public double CalcValorHoraD(){
-        if (horasTotais ==0)return 0;
-        return decimoTerceiro /(horasTotais*11); 
+
+    public double CalcValorHora() {
+        if (horasTrabalhadas == 0) return 0;
+        return salario / horasTrabalhadas;
     }
-    
-    public double CalcValorMinutoD(){
-        if (horasTotais ==0)return 0;
-        return valorHoraD /60; 
-    }    
-    
-     public double CalcValorHoraF(){
-        if (horasTotais ==0)return 0;
-        return ferias /(horasTotais*11); 
+
+    public double CalcValorMinuto() {
+        if (horasTrabalhadas == 0) return 0;
+        return CalcValorHora() / 60;
     }
-    
-    public double CalcValorMinutoF(){
-        if (horasTotais ==0)return 0;
-        return valorHoraF /60; 
-    }   
-//----------------------------------------------
-    public double getSalario() {
-        return salario;
+
+    public double CalcValorHoraD() {
+        if (horasTrabalhadas == 0) return 0;
+        return decimoTerceiro / (horasTrabalhadas * 11);
     }
+
+    public double CalcValorMinutoD() {
+        if (horasTrabalhadas == 0) return 0;
+        return CalcValorHoraD() / 60;
+    }
+
+    public double CalcValorHoraF() {
+        if (horasTotais == 0) return 0;
+        return ferias / (horasTrabalhadas * 11);
+    }
+
+    public double CalcValorMinutoF() {
+        if (horasTotais == 0) return 0;
+        return CalcValorHoraF() / 60;
+    }
+
+    // Getters e setters para os outros campos
+    
 
     public void setSalario(double salario) {
         this.salario = salario;
@@ -76,33 +76,27 @@ public class Recebimento1 {
         this.valorMinuto = CalcValorMinuto();
     }
 
-    public double getDecimoTerceiro() {
-        return decimoTerceiro;
-    }
+    
 
     public void setDecimoTerceiro(double decimoTerceiro) {
         this.decimoTerceiro = decimoTerceiro;
         this.valorHoraD = CalcValorHoraD();
-        this.valorMinutoD = CalcValorMinutoD();    
-        
+        this.valorMinutoD = CalcValorMinutoD();
     }
 
-    public double getFerias() {
-        return ferias;
-    }
+    
 
     public void setFerias(double ferias) {
         this.ferias = ferias;
         this.valorHoraF = CalcValorHoraF();
-        this.valorMinutoF = CalcValorMinutoF();        
+        this.valorMinutoF = CalcValorMinutoF();
     }
 
-    public double getHorasTrabalhadas() {
-        return horasTrabalhadas;
-    }
+    
 
     public void setHorasTrabalhadas(double horasTrabalhadas) {
         this.horasTrabalhadas = horasTrabalhadas;
+
     }
 
     public double getHorasTotais() {
@@ -116,9 +110,57 @@ public class Recebimento1 {
         this.valorHoraD = CalcValorHoraD();
         this.valorMinutoD = CalcValorMinutoD();
         this.valorHoraF = CalcValorHoraF();
-        this.valorMinutoF = CalcValorMinutoF();   
+        this.valorMinutoF = CalcValorMinutoF();
+        this.custoFixo = custoFixo;
+        this.custoFixoH = CalcValorCustoFixoH();
+        this.custoFixoM = CalcValorCustoFixoM();
     }
 
+    
+    public double getSalario() {
+        return salario;
+    }
+  
+    public double getFerias() {
+        return ferias;
+    }
+    
+    
+    public double getDecimoTerceiro() {
+        return decimoTerceiro;
+    }
+    
+    public double getCustoFixo() {
+        return custoFixo;
+    }
+    public void setCustoFixo(double custoFixo) {
+        this.custoFixo = custoFixo;
+    }
+   
+    public double getCustoFixoH() {
+        return custoFixoH;
+    }
+
+    public void setCustoFixoH(double custoFixoH) {
+        this.custoFixoH = custoFixoH;
+    }    
+    
+    public double getCustoFixoM() {
+        return custoFixoM;
+    }
+    public void setCustoFixoM(double custoFixoM) {
+       this.custoFixoM = custoFixoM; 
+    }
+    
+    
+    
+// carga horaria de produção    
+    public double getHorasTrabalhadas() {
+        return horasTrabalhadas;
+    }
+    
+    //salario hora gett e sett.
+    
     public double getValorHora() {
         return valorHora;
     }
@@ -127,6 +169,8 @@ public class Recebimento1 {
         this.valorHora = valorHora;
     }
 
+// salario minuto sett e gett.    
+    
     public double getValorMinuto() {
         return valorMinuto;
     }
@@ -135,6 +179,8 @@ public class Recebimento1 {
         this.valorMinuto = valorMinuto;
     }
 
+    
+    // get e setts horas decimo 
     public double getValorHoraD() {
         return valorHoraD;
     }
@@ -143,6 +189,8 @@ public class Recebimento1 {
         this.valorHoraD = valorHoraD;
     }
 
+    
+    //getter e setter minutos decimo
     public double getValorMinutoD() {
         return valorMinutoD;
     }
@@ -151,6 +199,10 @@ public class Recebimento1 {
         this.valorMinutoD = valorMinutoD;
     }
 
+    
+    
+    
+    // getter e setter horas ferias 
     public double getValorHoraF() {
         return valorHoraF;
     }
@@ -159,13 +211,20 @@ public class Recebimento1 {
         this.valorHoraF = valorHoraF;
     }
 
-    public double getValorMinutoF() {
+    
+
+// get e set minutos ferias 
+
+public double getValorMinutoF() {
         return valorMinutoF;
     }
-
-    public void setValorMinutoF(double valorMinutoF) {
+    
+      public void setValorMinutoF(double valorMinutoF) {
         this.valorMinutoF = valorMinutoF;
-    }
+    }  
+    
+    
+// Id recebimento
 
     public int getIDReb() {
         return IDReb;
@@ -175,13 +234,15 @@ public class Recebimento1 {
         this.IDReb = IDReb;
     }
 
-    public int getUser_codUsuario() {
+    // usuario 
+     public int getUser_codUsuario() {
         return User_codUsuario;
     }
 
     public void setUser_codUsuario(int User_codUsuario) {
         this.User_codUsuario = User_codUsuario;
-    }
+    }   
+    
     
     
     
@@ -191,5 +252,4 @@ public class Recebimento1 {
     
     
 }
-  
     

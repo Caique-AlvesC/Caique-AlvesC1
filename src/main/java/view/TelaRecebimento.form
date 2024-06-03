@@ -44,7 +44,7 @@
                               <Component id="HorasTrabalhadasTextField" min="-2" pref="143" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="HorasTotaisTextField" min="-2" pref="146" max="-2" attributes="0"/>
-                              <EmptySpace pref="49" max="32767" attributes="0"/>
+                              <EmptySpace pref="145" max="32767" attributes="0"/>
                               <Component id="back" min="-2" pref="72" max="-2" attributes="0"/>
                           </Group>
                           <Component id="DelRebButton" max="32767" attributes="0"/>

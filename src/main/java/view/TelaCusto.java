@@ -4,6 +4,7 @@
  */
 package view;
 import arquivs.java.Custo;
+import arquivs.java.Recebimento1;
 import arquivs.java.Usuario;
 import javax.swing.*;
 import java.sql.SQLException;
@@ -19,10 +20,8 @@ import model.dao.CustosDao;
  * @author Kaique Alves
  */
 public class TelaCusto extends javax.swing.JFrame {
+    private double totalCusto;
 
-    /**
-     * Creates new form TelaCusto
-     */
     public TelaCusto() throws SQLException, ClassNotFoundException {
         super("Tela de Custos Fixos");
         initComponents();
@@ -32,6 +31,8 @@ public class TelaCusto extends javax.swing.JFrame {
         TableColumnModel tcm = CustoTable.getColumnModel();
         System.out.println("Number of columns: " + CustoTable.getColumnCount());
         listarCustoTable();
+        listarSomaCustoFixo();
+        CalculoCustoFixoHxM();
     
        
         
@@ -53,7 +54,15 @@ public class TelaCusto extends javax.swing.JFrame {
       }
     }
     
-    
+public void listarSomaCustoFixo() {
+    CustosDao fdao = new CustosDao();
+        try {
+        totalCusto = fdao.listarSoma();      
+        totalCustoFixoText.setText(String.format("%.2f", totalCusto));
+    } catch (SQLException | ClassNotFoundException ex) {
+        Logger.getLogger(TelaReceita_2.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
     
     
     
@@ -73,6 +82,7 @@ public class TelaCusto extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         CustoTable = new javax.swing.JTable();
+        totalCustoFixoText = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -194,6 +204,13 @@ public class TelaCusto extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(CustoTable);
 
+        totalCustoFixoText.setBorder(javax.swing.BorderFactory.createTitledBorder("Total Custos Fixos:"));
+        totalCustoFixoText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                totalCustoFixoTextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -203,7 +220,8 @@ public class TelaCusto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(totalCustoFixoText, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(custReturnInicio))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
@@ -217,9 +235,11 @@ public class TelaCusto extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(custReturnInicio)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(totalCustoFixoText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(custReturnInicio))
                 .addContainerGap())
         );
 
@@ -281,7 +301,7 @@ public class TelaCusto extends javax.swing.JFrame {
                 
                 dao.update(custo);
                 listarCustoTable();
-                
+                CalculoCustoFixoHxM();
                 NomeCustoTextField.setText("");
                 ValorCustoTextField.setText("");
                 DescricaoCustoTextField.setText("");
@@ -306,7 +326,8 @@ public class TelaCusto extends javax.swing.JFrame {
             custo.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
             dao.create(custo);
             listarCustoTable();
-            
+            listarSomaCustoFixo();
+            CalculoCustoFixoHxM();
             NomeCustoTextField.setText("");
             ValorCustoTextField.setText("");
             DescricaoCustoTextField.setText("");
@@ -332,6 +353,10 @@ public class TelaCusto extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CustoTableMouseReleased
 
+    private void totalCustoFixoTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalCustoFixoTextActionPerformed
+
+    }//GEN-LAST:event_totalCustoFixoTextActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddCustoButton;
@@ -344,7 +369,33 @@ public class TelaCusto extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField totalCustoFixoText;
     private javax.swing.JButton updateCustoButton1;
     // End of variables declaration//GEN-END:variables
 
+    public void CalculoCustoFixoHxM(){
+        try {
+    CustosDao dao = new CustosDao();
+    double horasTrabalhadas = dao.getHorasTrabalhadas(Usuario.getInstance().getCodUsuario());        
+    double totalCusto = dao.listarSoma();
+  
+    
+    Recebimento1 recebimento1= new Recebimento1();
+    recebimento1.setHorasTrabalhadas(horasTrabalhadas);
+    recebimento1.setCustoFixo(totalCusto);
+    
+    double custoFixoH = recebimento1.CalcValorCustoFixoH();
+    double custoFixoM = recebimento1.CalcValorCustoFixoM();
+    
+    recebimento1.setCustoFixoH(custoFixoH);
+    recebimento1.setCustoFixoM(custoFixoM);
+    recebimento1.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
+    dao.CalcCustoFixoHxM(recebimento1);
+}       catch (SQLException ex) {
+            Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TelaCusto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
 }
