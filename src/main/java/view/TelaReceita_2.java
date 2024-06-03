@@ -123,17 +123,20 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
 
     }
 
-void LoadUpdate(int codReceita2) throws SQLException, ClassNotFoundException {
+public void LoadUpdate(int cod_receita2) throws SQLException, ClassNotFoundException {
     ReceitaDao dao = new ReceitaDao();
-    Receita receita = dao.fetchAllProducts(codReceita2);
-    
+    Receita receita = dao.fetchProductById(cod_receita2);
 
-    // Verifica se a receita foi encontrada
     if (receita != null) {
         AddNomeReceitaTextField.setText(receita.getCod_Receita());
         TempoGastoTextField.setText(String.valueOf(receita.getTempo_Gasto()));
         horMinComboBox.setSelectedItem(receita.getMod_tempo());
         MargemLucroTextField1.setText(String.valueOf(receita.getMargem_Lucro()));
+        listarIngredietesReceitaTable(AddNomeReceitaTextField.getText());
+        updateTotalCostLabel();
+        calcTimeButtonActionPerformed(null);
+        calcFinalActionPerformed(null);
+        
     } else {
         JOptionPane.showMessageDialog(this, "Receita não encontrada.");
     }
@@ -175,7 +178,7 @@ private void updateTotalCostLabel() {
         addReceita = new javax.swing.JButton();
         custoTotalTextLabel = new javax.swing.JTextField();
         totalAntLucro = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        calcTimeButton = new javax.swing.JButton();
         custoFixoTextField = new javax.swing.JLabel();
         calcFinal = new javax.swing.JButton();
         SalvarReceitaButton1 = new javax.swing.JButton();
@@ -294,10 +297,10 @@ private void updateTotalCostLabel() {
         totalAntLucro.setEditable(false);
         totalAntLucro.setBorder(javax.swing.BorderFactory.createTitledBorder("Total até aqui:"));
 
-        jButton1.setText("Calcular Gasto por tempo:");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        calcTimeButton.setText("Calcular Gasto por tempo:");
+        calcTimeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                calcTimeButtonActionPerformed(evt);
             }
         });
 
@@ -371,7 +374,7 @@ private void updateTotalCostLabel() {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(horMinComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(calcTimeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15))
         );
         layout.setVerticalGroup(
@@ -395,7 +398,7 @@ private void updateTotalCostLabel() {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(TempoGastoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(horMinComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(calcTimeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(custoFixoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -477,7 +480,7 @@ private void updateTotalCostLabel() {
         // TODO add your handling code here:
     }//GEN-LAST:event_TempoGastoTextFieldActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void calcTimeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcTimeButtonActionPerformed
     calculateAndUpdateLabels(isByHour);
 try {
         // Obtenha os textos dos campos e remova qualquer texto não numérico
@@ -503,7 +506,7 @@ try {
         System.err.println("Erro ao converter valores para número: " + e.getMessage());
         e.printStackTrace();
     }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_calcTimeButtonActionPerformed
 
     private void horMinComboBoxFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_horMinComboBoxFocusLost
         // TODO add your handling code here:
@@ -547,6 +550,7 @@ if (receitasTable.getSelectedRow() != -1) {
         receita.setReceber_Lucro(saldoLucro);
         receita.setReceber_Total(totalFinal);
         receita.setUser_codUsuario(Usuario.getInstance().getCodUsuario());
+        receita.setCod_receita2(cod_receita2);
         dao.update(receita);
         JOptionPane.showMessageDialog(this, "Receita atualizada com sucesso!");
     } catch (SQLException ex) {
@@ -598,10 +602,10 @@ if (receitasTable.getSelectedRow() != -1) {
     private javax.swing.JTextField TempoGastoTextField;
     private javax.swing.JButton addReceita;
     private javax.swing.JButton calcFinal;
+    private javax.swing.JButton calcTimeButton;
     private javax.swing.JLabel custoFixoTextField;
     private javax.swing.JTextField custoTotalTextLabel;
     private javax.swing.JComboBox<String> horMinComboBox;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> metricaRecComboBox;
     private javax.swing.JButton receitaReturn;

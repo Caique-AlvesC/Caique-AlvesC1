@@ -244,9 +244,9 @@ private int codReceita2;
 
     private void receitasTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_receitasTableMouseReleased
      if (receitasTable.getSelectedRow() != -1) {
-            // Obtenha o valor do cod_receita2 da tabela e armazene na variável de instância
-            codReceita2 = Integer.parseInt(receitasTable.getValueAt(receitasTable.getSelectedRow(), 4).toString());
-        }
+        // Obtenha o valor do cod_receita2 da tabela e armazene na variável de instância
+        codReceita2 = Integer.parseInt(receitasTable.getValueAt(receitasTable.getSelectedRow(), 4).toString());
+    }
 
     }//GEN-LAST:event_receitasTableMouseReleased
 
@@ -254,7 +254,8 @@ private int codReceita2;
 
         if (codReceita2 != 0) {
         try {
-            TelaReceita_2 telaEdicao = new TelaReceita_2(receitasTable);
+            this.dispose();
+            TelaReceita_2 telaEdicao = new TelaReceita_2(receitasTable); 
             telaEdicao.LoadUpdate(codReceita2);
             telaEdicao.setVisible(true);
         } catch (SQLException | ClassNotFoundException ex) {

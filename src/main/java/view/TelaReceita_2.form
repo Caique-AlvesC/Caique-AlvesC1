@@ -84,7 +84,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="horMinComboBox" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="170" max="-2" attributes="0"/>
+              <Component id="calcTimeButton" min="-2" pref="170" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -113,7 +113,7 @@
                       <Component id="TempoGastoTextField" alignment="3" min="-2" pref="57" max="-2" attributes="0"/>
                       <Component id="horMinComboBox" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jButton1" min="-2" pref="57" max="-2" attributes="0"/>
+                  <Component id="calcTimeButton" min="-2" pref="57" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -411,12 +411,12 @@
         </Property>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="calcTimeButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Calcular Gasto por tempo:"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calcTimeButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="custoFixoTextField">

@@ -108,60 +108,69 @@ public class ReceitaDao {
 }
     
         public void update(Receita receita) throws SQLException, ClassNotFoundException {
-            Connection con = ConnectionFactory.getConnection();
-            PreparedStatement stmt = null;
-            
-            try{
-                stmt = con.prepareStatement("UPDATE tablereceitas SET cod_Receita = ?, Custo_total_ingredie = ?, tempo_Gasto = ?,mod_tempo = ?, salario_aReceber = ?, a13_ferias = ?, custo_Fixo = ?, margem_Lucro = ?, receber_Lucro = ?, receber_Total = ?,   WHERE cod_receita2 = ? AND User_codUsuario = ?");
-                stmt.setString(1, receita.getCod_Receita());
-                stmt.setDouble(2, receita.getCusto_total_ingredie());
-                stmt.setInt(3, receita.getTempo_Gasto());
-                stmt.setString(4, receita.getMod_tempo());
-                stmt.setDouble(5, receita.getSalario_aReceber());
-                stmt.setDouble(6, receita.getA13_ferias());
-                stmt.setDouble(7, receita.getCusto_Fixo());
-                stmt.setDouble(8, receita.getTotalAntsLucro());
-                stmt.setDouble(9, receita.getMargem_Lucro());
-                stmt.setDouble(10, receita.getReceber_Lucro());
-                stmt.setDouble(11, receita.getReceber_Total());
-                stmt.executeUpdate();
-                JOptionPane.showMessageDialog(null,"produto atualizado com sucesso");
-            }
-            catch(SQLException ex){
-                JOptionPane.showMessageDialog(null,"Erro ao atualizar" + ex);
-            }finally{
-                ConnectionFactory.closeConnection(con, stmt);
-            }
-    
-    
-         }
-    
-public Receita fetchAllProducts(int cod_receita2) throws SQLException, ClassNotFoundException {
-        Connection con = ConnectionFactory.getConnection();
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        int codUsuario = Usuario.getInstance().getCodUsuario();
-        Receita receita = null;
-        try{
-            stmt = con.prepareStatement("SELECT * FROM tablereceita WHERE User_codUsuario = ? and cod_receita2 = ?");
-            stmt.setInt(1, codUsuario);
-             stmt.setInt(2,cod_receita2);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-               receita = new Receita();
-                receita.setCod_Receita(rs.getString("cod_Receita"));
-                receita.setTempo_Gasto(rs.getInt("tempo_Gasto"));
-                receita.setMod_tempo(rs.getString("mod_tempo"));
-                receita.setMargem_Lucro(rs.getDouble("margem_Lucro"));
-                receita.setUser_codUsuario(rs.getInt("User_codUsuario"));
-                receita.setCod_receita2(rs.getInt("cod_receita2"));
-                                 
-            }
-        } catch (SQLException e) {
-        }
-        return receita;
-    }
+    Connection con = ConnectionFactory.getConnection();
+    PreparedStatement stmt = null;
 
+    try {
+        String sql = "UPDATE tablereceitas SET cod_Receita = ?, Custo_total_ingredie = ?, tempo_Gasto = ?, mod_tempo = ?, " +
+                     "salario_aReceber = ?, a13_ferias = ?, custo_Fixo = ?, TotalAntsLucro = ?, margem_Lucro = ?, " +
+                     "receber_Lucro = ?, receber_Total = ? WHERE User_codUsuario = ? AND cod_receita2 = ?";
+        stmt = con.prepareStatement(sql);
+        stmt.setString(1, receita.getCod_Receita());
+        stmt.setDouble(2, receita.getCusto_total_ingredie());
+        stmt.setInt(3, receita.getTempo_Gasto());
+        stmt.setString(4, receita.getMod_tempo());
+        stmt.setDouble(5, receita.getSalario_aReceber());
+        stmt.setDouble(6, receita.getA13_ferias());
+        stmt.setDouble(7, receita.getCusto_Fixo());
+        stmt.setDouble(8, receita.getTotalAntsLucro());
+        stmt.setDouble(9, receita.getMargem_Lucro());
+        stmt.setDouble(10, receita.getReceber_Lucro());
+        stmt.setDouble(11, receita.getReceber_Total());
+        stmt.setInt(12, receita.getUser_codUsuario());
+        stmt.setInt(13, receita.getCod_receita2());
+
+        stmt.executeUpdate();
+        JOptionPane.showMessageDialog(null, "Produto atualizado com sucesso");
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex);
+    } finally {
+        ConnectionFactory.closeConnection(con, stmt);
+    }
+}
+    
+public Receita fetchProductById(int cod_receita2) throws SQLException, ClassNotFoundException {
+    Connection con = null;
+    PreparedStatement stmt = null;
+    ResultSet rs = null;
+    int codUsuario = Usuario.getInstance().getCodUsuario();
+    Receita receita = null;
+
+    try {
+        con = ConnectionFactory.getConnection();
+        stmt = con.prepareStatement("SELECT * FROM tablereceitas WHERE User_codUsuario = ? AND cod_receita2 = ?");
+        stmt.setInt(1, codUsuario);
+        stmt.setInt(2, cod_receita2);
+        rs = stmt.executeQuery();
+
+        if (rs.next()) {
+            receita = new Receita();
+            receita.setCod_Receita(rs.getString("cod_Receita"));
+            receita.setTempo_Gasto(rs.getInt("tempo_Gasto"));
+            receita.setMod_tempo(rs.getString("mod_tempo"));
+            receita.setMargem_Lucro(rs.getDouble("margem_Lucro"));
+            receita.setUser_codUsuario(rs.getInt("User_codUsuario"));
+            receita.setCod_receita2(rs.getInt("cod_receita2"));
+            // Preencha os outros atributos conforme necessário
+        }
+    } catch (SQLException e) {
+        e.printStackTrace(); // ou use Logger para registrar o erro
+        throw new SQLException("Erro ao buscar a receita no banco de dados", e);
+    } finally{
+                ConnectionFactory.closeConnection(con, stmt, rs);
+            }
+    return receita;
+}
      
     
     
