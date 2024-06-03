@@ -136,9 +136,33 @@ public class ReceitaDao {
     
          }
     
+public Receita fetchAllProducts(int cod_receita2) throws SQLException, ClassNotFoundException {
+        Connection con = ConnectionFactory.getConnection();
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int codUsuario = Usuario.getInstance().getCodUsuario();
+        Receita receita = null;
+        try{
+            stmt = con.prepareStatement("SELECT * FROM tablereceita WHERE User_codUsuario = ? and cod_receita2 = ?");
+            stmt.setInt(1, codUsuario);
+             stmt.setInt(2,cod_receita2);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+               receita = new Receita();
+                receita.setCod_Receita(rs.getString("cod_Receita"));
+                receita.setTempo_Gasto(rs.getInt("tempo_Gasto"));
+                receita.setMod_tempo(rs.getString("mod_tempo"));
+                receita.setMargem_Lucro(rs.getDouble("margem_Lucro"));
+                receita.setUser_codUsuario(rs.getInt("User_codUsuario"));
+                receita.setCod_receita2(rs.getInt("cod_receita2"));
+                                 
+            }
+        } catch (SQLException e) {
+        }
+        return receita;
+    }
 
-    
-    
+     
     
     
     

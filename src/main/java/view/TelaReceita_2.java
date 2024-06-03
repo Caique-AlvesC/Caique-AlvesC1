@@ -120,10 +120,27 @@ private void loadIngredients() throws SQLException, ClassNotFoundException{
             // Considerar atualizar outros componentes de UI com mais detalhes do ingrediente
         }
     });
-    
-    
-    
+
     }
+
+void LoadUpdate(int codReceita2) throws SQLException, ClassNotFoundException {
+    ReceitaDao dao = new ReceitaDao();
+    Receita receita = dao.fetchAllProducts(codReceita2);
+    
+
+    // Verifica se a receita foi encontrada
+    if (receita != null) {
+        AddNomeReceitaTextField.setText(receita.getCod_Receita());
+        TempoGastoTextField.setText(String.valueOf(receita.getTempo_Gasto()));
+        horMinComboBox.setSelectedItem(receita.getMod_tempo());
+        MargemLucroTextField1.setText(String.valueOf(receita.getMargem_Lucro()));
+    } else {
+        JOptionPane.showMessageDialog(this, "Receita não encontrada.");
+    }
+}
+
+
+
 
 private void updateTotalCostLabel() {
     try {

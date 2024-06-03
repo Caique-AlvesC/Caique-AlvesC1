@@ -18,7 +18,7 @@ import model.dao.ReceitaDao;
  * @author Kaique Alves
  */
 public class TelaReceita_1 extends javax.swing.JFrame {
-
+private int codReceita2;
     public TelaReceita_1() {
         super("Tela de Receitas");
         initComponents();
@@ -78,6 +78,11 @@ public class TelaReceita_1 extends javax.swing.JFrame {
         });
 
         editarRecButton.setText("Abrir Receita Selecionada");
+        editarRecButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editarRecButtonActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Ingredientes");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -141,6 +146,11 @@ public class TelaReceita_1 extends javax.swing.JFrame {
                 "Receita de:", "Preço Final", "Custo Ingredientes", "Lucros", "ID Receita"
             }
         ));
+        receitasTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                receitasTableMouseReleased(evt);
+            }
+        });
         jScrollPane1.setViewportView(receitasTable);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -231,6 +241,31 @@ public class TelaReceita_1 extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Selecione uma Receita para excluir");
     }
     }//GEN-LAST:event_deleteReceitaActionPerformed
+
+    private void receitasTableMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_receitasTableMouseReleased
+     if (receitasTable.getSelectedRow() != -1) {
+            // Obtenha o valor do cod_receita2 da tabela e armazene na variável de instância
+            codReceita2 = Integer.parseInt(receitasTable.getValueAt(receitasTable.getSelectedRow(), 4).toString());
+        }
+
+    }//GEN-LAST:event_receitasTableMouseReleased
+
+    private void editarRecButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editarRecButtonActionPerformed
+
+        if (codReceita2 != 0) {
+        try {
+            TelaReceita_2 telaEdicao = new TelaReceita_2(receitasTable);
+            telaEdicao.LoadUpdate(codReceita2);
+            telaEdicao.setVisible(true);
+        } catch (SQLException | ClassNotFoundException ex) {
+            Logger.getLogger(TelaReceita_1.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Erro ao carregar a receita: " + ex.getMessage());
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Selecione uma receita para editar.");
+    }
+             
+    }//GEN-LAST:event_editarRecButtonActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
