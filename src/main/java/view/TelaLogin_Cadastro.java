@@ -40,61 +40,59 @@ public class TelaLogin_Cadastro extends javax.swing.JFrame {
         SenhaCadTextField2 = new javax.swing.JTextField();
         CadLoginButton = new javax.swing.JButton();
         Return = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(null);
 
+        loginCadTextField.setBackground(new java.awt.Color(255, 204, 204));
+        loginCadTextField.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         loginCadTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Login a ser Cadastrado:"));
+        getContentPane().add(loginCadTextField);
+        loginCadTextField.setBounds(193, 33, 848, 99);
 
+        SenhaCadTextField.setBackground(new java.awt.Color(255, 204, 204));
+        SenhaCadTextField.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         SenhaCadTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Digite a senha para o cadastro:"));
+        getContentPane().add(SenhaCadTextField);
+        SenhaCadTextField.setBounds(193, 164, 848, 100);
 
+        SenhaCadTextField2.setBackground(new java.awt.Color(255, 204, 204));
+        SenhaCadTextField2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         SenhaCadTextField2.setBorder(javax.swing.BorderFactory.createTitledBorder("Digite novamente a senha:"));
+        getContentPane().add(SenhaCadTextField2);
+        SenhaCadTextField2.setBounds(193, 296, 848, 100);
 
+        CadLoginButton.setBackground(new java.awt.Color(255, 204, 204));
+        CadLoginButton.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        CadLoginButton.setForeground(new java.awt.Color(255, 255, 255));
         CadLoginButton.setText("Cadastrar");
         CadLoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CadLoginButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(CadLoginButton);
+        CadLoginButton.setBounds(429, 428, 479, 163);
 
+        Return.setBackground(new java.awt.Color(255, 204, 204));
+        Return.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        Return.setForeground(new java.awt.Color(255, 255, 255));
         Return.setText("Voltar");
         Return.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ReturnActionPerformed(evt);
             }
         });
+        getContentPane().add(Return);
+        Return.setBounds(1040, 570, 207, 103);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(CadLoginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                    .addComponent(SenhaCadTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                    .addComponent(loginCadTextField)
-                    .addComponent(SenhaCadTextField2))
-                .addContainerGap(86, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Return)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(loginCadTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(SenhaCadTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(SenhaCadTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(CadLoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
-                .addComponent(Return)
-                .addContainerGap())
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Captura de tela 2024-06-04 212012.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1290, 720);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -136,6 +134,7 @@ public class TelaLogin_Cadastro extends javax.swing.JFrame {
     private javax.swing.JButton Return;
     private javax.swing.JTextField SenhaCadTextField;
     private javax.swing.JTextField SenhaCadTextField2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField loginCadTextField;
     // End of variables declaration//GEN-END:variables
 }

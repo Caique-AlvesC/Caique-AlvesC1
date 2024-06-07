@@ -46,12 +46,17 @@ public class TelaRecebimento extends javax.swing.JFrame{
         HorasTrabalhadasTextField = new javax.swing.JTextField();
         HorasTotaisTextField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablerecebimentos = new javax.swing.JTable();
+        TableRecebimento = new javax.swing.JTable();
         back = new javax.swing.JButton();
         save = new javax.swing.JButton();
         DelRebButton = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(null);
 
         salarioTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Salario:"));
         salarioTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -59,6 +64,8 @@ public class TelaRecebimento extends javax.swing.JFrame{
                 salarioTextFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(salarioTextField);
+        salarioTextField.setBounds(10, 60, 180, 68);
 
         DecimoTerceiroTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Decimo terceiro"));
         DecimoTerceiroTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -66,6 +73,8 @@ public class TelaRecebimento extends javax.swing.JFrame{
                 DecimoTerceiroTextFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(DecimoTerceiroTextField);
+        DecimoTerceiroTextField.setBounds(210, 60, 220, 68);
 
         FeriasTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Ferias"));
         FeriasTextField.addActionListener(new java.awt.event.ActionListener() {
@@ -73,12 +82,18 @@ public class TelaRecebimento extends javax.swing.JFrame{
                 FeriasTextFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(FeriasTextField);
+        FeriasTextField.setBounds(460, 60, 250, 68);
 
         HorasTrabalhadasTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Horas de Produção"));
+        getContentPane().add(HorasTrabalhadasTextField);
+        HorasTrabalhadasTextField.setBounds(730, 60, 240, 68);
 
         HorasTotaisTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Horas trabalhadas totais"));
+        getContentPane().add(HorasTotaisTextField);
+        HorasTotaisTextField.setBounds(990, 60, 200, 68);
 
-        tablerecebimentos.setModel(new javax.swing.table.DefaultTableModel(
+        TableRecebimento.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -90,12 +105,15 @@ public class TelaRecebimento extends javax.swing.JFrame{
                 "Salário", "Décimo Terceiro", "Férias", "Horas Trabalhadas", "Horas Totais", "ID", "ID USUARIO"
             }
         ));
-        tablerecebimentos.addMouseListener(new java.awt.event.MouseAdapter() {
+        TableRecebimento.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                tablerecebimentosMouseReleased(evt);
+                TableRecebimentoMouseReleased(evt);
             }
         });
-        jScrollPane1.setViewportView(tablerecebimentos);
+        jScrollPane1.setViewportView(TableRecebimento);
+
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(10, 230, 1180, 360);
 
         back.setText("voltar");
         back.addActionListener(new java.awt.event.ActionListener() {
@@ -103,6 +121,8 @@ public class TelaRecebimento extends javax.swing.JFrame{
                 backActionPerformed(evt);
             }
         });
+        getContentPane().add(back);
+        back.setBounds(850, 150, 340, 60);
 
         save.setText("Salvar");
         save.addActionListener(new java.awt.event.ActionListener() {
@@ -110,6 +130,8 @@ public class TelaRecebimento extends javax.swing.JFrame{
                 saveActionPerformed(evt);
             }
         });
+        getContentPane().add(save);
+        save.setBounds(13, 150, 420, 60);
 
         DelRebButton.setText("Excluir dados");
         DelRebButton.addActionListener(new java.awt.event.ActionListener() {
@@ -117,54 +139,12 @@ public class TelaRecebimento extends javax.swing.JFrame{
                 DelRebButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(DelRebButton);
+        DelRebButton.setBounds(470, 150, 340, 60);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(save, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(salarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(DecimoTerceiroTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(FeriasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(HorasTrabalhadasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(HorasTotaisTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
-                                .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(DelRebButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(22, 22, 22))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(salarioTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(DecimoTerceiroTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FeriasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(HorasTrabalhadasTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(HorasTotaisTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(back, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(save)
-                    .addComponent(DelRebButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Captura de tela 2024-06-04 212012.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1280, 730);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -264,8 +244,9 @@ try {
     private javax.swing.JTextField FeriasTextField;
     private javax.swing.JTextField HorasTotaisTextField;
     private javax.swing.JTextField HorasTrabalhadasTextField;
-    private javax.swing.JTable tablerecebimentos;
+    private javax.swing.JTable TableRecebimento;
     private javax.swing.JButton back;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField salarioTextField;
     private javax.swing.JButton save;

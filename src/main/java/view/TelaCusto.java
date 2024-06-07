@@ -72,112 +72,38 @@ public void listarSomaCustoFixo() {
     private void initComponents() {
 
         custReturnInicio = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        NomeCustoTextField = new javax.swing.JTextField();
-        ValorCustoTextField = new javax.swing.JTextField();
-        DescricaoCustoTextField = new javax.swing.JTextField();
-        ExcluirCustoButton = new javax.swing.JButton();
-        updateCustoButton1 = new javax.swing.JButton();
-        AddCustoButton = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         CustoTable = new javax.swing.JTable();
         totalCustoFixoText = new javax.swing.JTextField();
+        DescricaoCustoTextField = new javax.swing.JTextField();
+        NomeCustoTextField = new javax.swing.JTextField();
+        updateCustoButton1 = new javax.swing.JButton();
+        ExcluirCustoButton = new javax.swing.JButton();
+        AddCustoButton = new javax.swing.JButton();
+        ValorCustoTextField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(null);
 
+        custReturnInicio.setBackground(new java.awt.Color(255, 204, 204));
+        custReturnInicio.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        custReturnInicio.setForeground(new java.awt.Color(255, 255, 255));
         custReturnInicio.setText("Voltar");
         custReturnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 custReturnInicioActionPerformed(evt);
             }
         });
+        getContentPane().add(custReturnInicio);
+        custReturnInicio.setBounds(990, 590, 250, 50);
 
-        NomeCustoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do Custo:"));
-        NomeCustoTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NomeCustoTextFieldActionPerformed(evt);
-            }
-        });
-
-        ValorCustoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor do Custo:"));
-
-        DescricaoCustoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição do Custo:"));
-        DescricaoCustoTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DescricaoCustoTextFieldActionPerformed(evt);
-            }
-        });
-
-        ExcluirCustoButton.setText("Excluir");
-        ExcluirCustoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExcluirCustoButtonActionPerformed(evt);
-            }
-        });
-
-        updateCustoButton1.setText("Atualizar");
-        updateCustoButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateCustoButton1ActionPerformed(evt);
-            }
-        });
-
-        AddCustoButton.setText("Add");
-        AddCustoButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddCustoButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(DescricaoCustoTextField)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(NomeCustoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ValorCustoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ExcluirCustoButton)
-                    .addComponent(updateCustoButton1)
-                    .addComponent(AddCustoButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(NomeCustoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(ValorCustoTextField)
-                    .addComponent(AddCustoButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(DescricaoCustoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(ExcluirCustoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(updateCustoButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(15, 15, 15))
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
+        CustoTable.setBackground(new java.awt.Color(255, 204, 204));
+        CustoTable.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        CustoTable.setForeground(new java.awt.Color(255, 255, 255));
         CustoTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
@@ -204,44 +130,96 @@ public void listarSomaCustoFixo() {
         });
         jScrollPane1.setViewportView(CustoTable);
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(30, 370, 1216, 210);
+
+        totalCustoFixoText.setBackground(new java.awt.Color(255, 204, 204));
+        totalCustoFixoText.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        totalCustoFixoText.setForeground(new java.awt.Color(255, 255, 255));
         totalCustoFixoText.setBorder(javax.swing.BorderFactory.createTitledBorder("Total Custos Fixos:"));
         totalCustoFixoText.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 totalCustoFixoTextActionPerformed(evt);
             }
         });
+        getContentPane().add(totalCustoFixoText);
+        totalCustoFixoText.setBounds(30, 590, 530, 59);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(totalCustoFixoText, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(custReturnInicio))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(totalCustoFixoText, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(custReturnInicio))
-                .addContainerGap())
-        );
+        DescricaoCustoTextField.setBackground(new java.awt.Color(255, 204, 204));
+        DescricaoCustoTextField.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        DescricaoCustoTextField.setForeground(new java.awt.Color(255, 255, 255));
+        DescricaoCustoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição do Custo:"));
+        DescricaoCustoTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DescricaoCustoTextFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(DescricaoCustoTextField);
+        DescricaoCustoTextField.setBounds(30, 240, 1210, 110);
+
+        NomeCustoTextField.setBackground(new java.awt.Color(255, 204, 204));
+        NomeCustoTextField.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        NomeCustoTextField.setForeground(new java.awt.Color(255, 255, 255));
+        NomeCustoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do Custo:"));
+        NomeCustoTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NomeCustoTextFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(NomeCustoTextField);
+        NomeCustoTextField.setBounds(30, 20, 1210, 55);
+
+        updateCustoButton1.setBackground(new java.awt.Color(255, 204, 204));
+        updateCustoButton1.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        updateCustoButton1.setForeground(new java.awt.Color(255, 255, 255));
+        updateCustoButton1.setText("Atualizar");
+        updateCustoButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateCustoButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(updateCustoButton1);
+        updateCustoButton1.setBounds(30, 100, 390, 40);
+
+        ExcluirCustoButton.setBackground(new java.awt.Color(255, 204, 204));
+        ExcluirCustoButton.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        ExcluirCustoButton.setForeground(new java.awt.Color(255, 255, 255));
+        ExcluirCustoButton.setText("Excluir");
+        ExcluirCustoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ExcluirCustoButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ExcluirCustoButton);
+        ExcluirCustoButton.setBounds(850, 100, 390, 40);
+
+        AddCustoButton.setBackground(new java.awt.Color(255, 204, 204));
+        AddCustoButton.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        AddCustoButton.setForeground(new java.awt.Color(255, 255, 255));
+        AddCustoButton.setText("Add");
+        AddCustoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddCustoButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AddCustoButton);
+        AddCustoButton.setBounds(440, 100, 400, 40);
+
+        ValorCustoTextField.setBackground(new java.awt.Color(255, 204, 204));
+        ValorCustoTextField.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        ValorCustoTextField.setForeground(new java.awt.Color(255, 255, 255));
+        ValorCustoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor do Custo:"));
+        ValorCustoTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ValorCustoTextFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ValorCustoTextField);
+        ValorCustoTextField.setBounds(30, 160, 1216, 62);
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Captura de tela 2024-05-31 140311.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1280, 740);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -357,6 +335,10 @@ public void listarSomaCustoFixo() {
 
     }//GEN-LAST:event_totalCustoFixoTextActionPerformed
 
+    private void ValorCustoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ValorCustoTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ValorCustoTextFieldActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddCustoButton;
@@ -366,8 +348,7 @@ public void listarSomaCustoFixo() {
     private javax.swing.JTextField NomeCustoTextField;
     private javax.swing.JTextField ValorCustoTextField;
     private javax.swing.JButton custReturnInicio;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField totalCustoFixoText;
     private javax.swing.JButton updateCustoButton1;

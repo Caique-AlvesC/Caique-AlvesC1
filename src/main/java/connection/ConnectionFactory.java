@@ -22,7 +22,7 @@ public class ConnectionFactory {
     private static String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static String URL = "jdbc:mysql://localhost:3306/precification";
     private static String USER = "root";
-    private static String PASS = "";
+    private static String PASS = "@Viracopos07";
     
     public static Connection getConnection() throws ClassNotFoundException, SQLException{
         try{

@@ -24,61 +24,60 @@ public class TelaLogin extends javax.swing.JFrame {
         senhaTextField = new javax.swing.JPasswordField();
         LoginButton = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(null);
 
+        userTextField.setBackground(new java.awt.Color(255, 204, 204));
+        userTextField.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        userTextField.setForeground(new java.awt.Color(255, 255, 255));
+        userTextField.setText("rrr");
         userTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Usuario:"));
         userTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 userTextFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(userTextField);
+        userTextField.setBounds(250, 65, 780, 160);
 
+        senhaTextField.setBackground(new java.awt.Color(255, 204, 204));
+        senhaTextField.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
+        senhaTextField.setForeground(new java.awt.Color(255, 255, 255));
         senhaTextField.setText("jPasswordField1");
         senhaTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha:"));
+        getContentPane().add(senhaTextField);
+        senhaTextField.setBounds(250, 243, 780, 160);
 
+        LoginButton.setBackground(new java.awt.Color(255, 204, 204));
+        LoginButton.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         LoginButton.setText("Entrar");
         LoginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoginButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(LoginButton);
+        LoginButton.setBounds(250, 504, 250, 103);
 
+        jButton2.setBackground(new java.awt.Color(255, 204, 204));
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jButton2.setText("Cadastrar");
+        jButton2.setMaximumSize(new java.awt.Dimension(250, 71));
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
+        getContentPane().add(jButton2);
+        jButton2.setBounds(786, 504, 244, 103);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(LoginButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(senhaTextField)
-                    .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(74, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(49, 49, 49)
-                .addComponent(userTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(senhaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(LoginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(120, Short.MAX_VALUE))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Captura de tela 2024-06-04 210552.png"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, 0, 1280, 720);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -131,6 +130,7 @@ public class TelaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton LoginButton;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPasswordField senhaTextField;
     private javax.swing.JTextField userTextField;
     // End of variables declaration//GEN-END:variables

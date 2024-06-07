@@ -182,32 +182,59 @@ private void updateTotalCostLabel() {
         custoFixoTextField = new javax.swing.JLabel();
         calcFinal = new javax.swing.JButton();
         SalvarReceitaButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(null);
 
+        receitaReturn.setBackground(new java.awt.Color(255, 204, 204));
+        receitaReturn.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        receitaReturn.setForeground(new java.awt.Color(255, 255, 255));
         receitaReturn.setText("Voltar");
         receitaReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 receitaReturnActionPerformed(evt);
             }
         });
+        getContentPane().add(receitaReturn);
+        receitaReturn.setBounds(1140, 10, 110, 50);
 
+        AddNomeReceitaTextField.setBackground(new java.awt.Color(255, 204, 204));
+        AddNomeReceitaTextField.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        AddNomeReceitaTextField.setForeground(new java.awt.Color(255, 255, 255));
         AddNomeReceitaTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Receita de :"));
+        getContentPane().add(AddNomeReceitaTextField);
+        AddNomeReceitaTextField.setBounds(10, 10, 460, 48);
 
+        IngredientesComboBox.setBackground(new java.awt.Color(255, 204, 204));
+        IngredientesComboBox.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        IngredientesComboBox.setForeground(new java.awt.Color(255, 255, 255));
         IngredientesComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "<Selecione o Ingrediente>" }));
         IngredientesComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 IngredientesComboBoxActionPerformed(evt);
             }
         });
+        getContentPane().add(IngredientesComboBox);
+        IngredientesComboBox.setBounds(480, 10, 190, 42);
 
+        QuantIngredieTextField.setBackground(new java.awt.Color(255, 204, 204));
+        QuantIngredieTextField.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        QuantIngredieTextField.setForeground(new java.awt.Color(255, 255, 255));
         QuantIngredieTextField.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("Quantidade do Ingrediente usado:"))));
         QuantIngredieTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 QuantIngredieTextFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(QuantIngredieTextField);
+        QuantIngredieTextField.setBounds(680, 10, 230, 42);
 
+        IngredietesReceitaTable.setBackground(new java.awt.Color(255, 204, 204));
+        IngredietesReceitaTable.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        IngredietesReceitaTable.setForeground(new java.awt.Color(255, 255, 255));
         IngredietesReceitaTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null},
@@ -229,13 +256,24 @@ private void updateTotalCostLabel() {
         });
         jScrollPane1.setViewportView(IngredietesReceitaTable);
 
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(10, 130, 1230, 190);
+
+        TempoGastoTextField.setBackground(new java.awt.Color(255, 204, 204));
+        TempoGastoTextField.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        TempoGastoTextField.setForeground(new java.awt.Color(255, 255, 255));
         TempoGastoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Tempo gasto:"));
         TempoGastoTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TempoGastoTextFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(TempoGastoTextField);
+        TempoGastoTextField.setBounds(230, 340, 174, 57);
 
+        horMinComboBox.setBackground(new java.awt.Color(255, 204, 204));
+        horMinComboBox.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        horMinComboBox.setForeground(new java.awt.Color(255, 255, 255));
         horMinComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Horas", "Minutos", " " }));
         horMinComboBox.setBorder(javax.swing.BorderFactory.createTitledBorder("Tempo gasto em :"));
         horMinComboBox.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -248,176 +286,141 @@ private void updateTotalCostLabel() {
                 horMinComboBoxActionPerformed(evt);
             }
         });
+        getContentPane().add(horMinComboBox);
+        horMinComboBox.setBounds(410, 340, 170, 51);
 
+        DTTempoGastoLabel.setBackground(new java.awt.Color(255, 204, 204));
+        DTTempoGastoLabel.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         DTTempoGastoLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("13° e ferias pelo tempo de produção:"));
+        getContentPane().add(DTTempoGastoLabel);
+        DTTempoGastoLabel.setBounds(271, 400, 230, 51);
 
+        SalarioTempoGastoLabel1.setBackground(new java.awt.Color(255, 204, 204));
+        SalarioTempoGastoLabel1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         SalarioTempoGastoLabel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Salário pelo tempo de produção:"));
+        getContentPane().add(SalarioTempoGastoLabel1);
+        SalarioTempoGastoLabel1.setBounds(20, 400, 250, 51);
 
+        MargemLucroTextField1.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         MargemLucroTextField1.setBorder(javax.swing.BorderFactory.createTitledBorder("Margem de Lucro:"));
         MargemLucroTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 MargemLucroTextField1FocusLost(evt);
             }
         });
+        getContentPane().add(MargemLucroTextField1);
+        MargemLucroTextField1.setBounds(950, 402, 150, 50);
 
+        LucroLabel.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         LucroLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Receber de Lucro:"));
+        getContentPane().add(LucroLabel);
+        LucroLabel.setBounds(1107, 402, 130, 50);
 
+        ReceitaValorFinalLabel.setBackground(new java.awt.Color(0, 0, 0));
+        ReceitaValorFinalLabel.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         ReceitaValorFinalLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Valor final do Produto :"));
+        getContentPane().add(ReceitaValorFinalLabel);
+        ReceitaValorFinalLabel.setBounds(780, 510, 450, 88);
 
+        AtualizarReceitaButton.setBackground(new java.awt.Color(255, 204, 204));
+        AtualizarReceitaButton.setFont(new java.awt.Font("Segoe UI", 2, 36)); // NOI18N
+        AtualizarReceitaButton.setForeground(new java.awt.Color(255, 255, 255));
         AtualizarReceitaButton.setText("Atualizar");
         AtualizarReceitaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AtualizarReceitaButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(AtualizarReceitaButton);
+        AtualizarReceitaButton.setBounds(20, 520, 370, 88);
 
+        metricaRecComboBox.setBackground(new java.awt.Color(255, 204, 204));
+        metricaRecComboBox.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        metricaRecComboBox.setForeground(new java.awt.Color(255, 255, 255));
         metricaRecComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Escolha uma opção de Metrica>", "Ml(mililitros)", "L (Litros)", "g (gramas)", "kg (Quilos)", "U (Unidades)" }));
         metricaRecComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 metricaRecComboBoxActionPerformed(evt);
             }
         });
+        getContentPane().add(metricaRecComboBox);
+        metricaRecComboBox.setBounds(920, 10, 210, 42);
 
+        addReceita.setBackground(new java.awt.Color(255, 204, 204));
+        addReceita.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        addReceita.setForeground(new java.awt.Color(255, 255, 255));
         addReceita.setText("Add");
         addReceita.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addReceitaActionPerformed(evt);
             }
         });
+        getContentPane().add(addReceita);
+        addReceita.setBounds(10, 70, 350, 42);
 
         custoTotalTextLabel.setEditable(false);
-        custoTotalTextLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        custoTotalTextLabel.setBackground(new java.awt.Color(255, 204, 204));
+        custoTotalTextLabel.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        custoTotalTextLabel.setForeground(new java.awt.Color(255, 255, 255));
         custoTotalTextLabel.setBorder(javax.swing.BorderFactory.createTitledBorder("Custo total de ingredientes usados :"));
         custoTotalTextLabel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 custoTotalTextLabelActionPerformed(evt);
             }
         });
+        getContentPane().add(custoTotalTextLabel);
+        custoTotalTextLabel.setBounds(10, 340, 210, 60);
 
-        totalAntLucro.setEditable(false);
+        totalAntLucro.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         totalAntLucro.setBorder(javax.swing.BorderFactory.createTitledBorder("Total até aqui:"));
+        getContentPane().add(totalAntLucro);
+        totalAntLucro.setBounds(741, 400, 200, 51);
 
+        calcTimeButton.setBackground(new java.awt.Color(255, 204, 204));
+        calcTimeButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        calcTimeButton.setForeground(new java.awt.Color(255, 255, 255));
         calcTimeButton.setText("Calcular Gasto por tempo:");
         calcTimeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calcTimeButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(calcTimeButton);
+        calcTimeButton.setBounds(810, 330, 430, 57);
 
+        custoFixoTextField.setBackground(new java.awt.Color(255, 204, 204));
+        custoFixoTextField.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         custoFixoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Custo fixo de :"));
+        getContentPane().add(custoFixoTextField);
+        custoFixoTextField.setBounds(514, 400, 220, 51);
 
+        calcFinal.setBackground(new java.awt.Color(255, 204, 204));
+        calcFinal.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        calcFinal.setForeground(new java.awt.Color(255, 255, 255));
         calcFinal.setText("Calcular lucro e valor final");
         calcFinal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calcFinalActionPerformed(evt);
             }
         });
+        getContentPane().add(calcFinal);
+        calcFinal.setBounds(20, 460, 1210, 40);
 
+        SalvarReceitaButton1.setBackground(new java.awt.Color(255, 204, 204));
+        SalvarReceitaButton1.setFont(new java.awt.Font("Segoe UI", 2, 36)); // NOI18N
+        SalvarReceitaButton1.setForeground(new java.awt.Color(255, 255, 255));
         SalvarReceitaButton1.setText("Salvar");
         SalvarReceitaButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SalvarReceitaButton1ActionPerformed(evt);
             }
         });
+        getContentPane().add(SalvarReceitaButton1);
+        SalvarReceitaButton1.setBounds(400, 520, 360, 88);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(AddNomeReceitaTextField)
-                                .addGap(18, 18, 18)
-                                .addComponent(receitaReturn))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(IngredientesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(QuantIngredieTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(metricaRecComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(addReceita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(ReceitaValorFinalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 427, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(SalvarReceitaButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(AtualizarReceitaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(MargemLucroTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(LucroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(calcFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(SalarioTempoGastoLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(DTTempoGastoLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(custoFixoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(totalAntLucro, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7))))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(custoTotalTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(TempoGastoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(horMinComboBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(calcTimeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(receitaReturn)
-                    .addComponent(AddNomeReceitaTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(IngredientesComboBox)
-                    .addComponent(QuantIngredieTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 42, Short.MAX_VALUE)
-                    .addComponent(metricaRecComboBox)
-                    .addComponent(addReceita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(custoTotalTextLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(TempoGastoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(horMinComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(calcTimeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(custoFixoTextField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(SalarioTempoGastoLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(DTTempoGastoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                    .addComponent(totalAntLucro))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MargemLucroTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(LucroLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(calcFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(ReceitaValorFinalLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(SalvarReceitaButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(AtualizarReceitaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(180, 180, 180))
-        );
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Captura de tela 2024-06-04 212012.png"))); // NOI18N
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(0, 0, 1280, 720);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -606,6 +609,7 @@ if (receitasTable.getSelectedRow() != -1) {
     private javax.swing.JLabel custoFixoTextField;
     private javax.swing.JTextField custoTotalTextLabel;
     private javax.swing.JComboBox<String> horMinComboBox;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> metricaRecComboBox;
     private javax.swing.JButton receitaReturn;

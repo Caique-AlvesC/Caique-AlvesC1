@@ -56,29 +56,28 @@ public class TelaIngredientes extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        IngredReturnInicio = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         IngredientesTable = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
-        precoTextField = new javax.swing.JTextField();
-        quantTextField = new javax.swing.JTextField();
-        metricaBox = new javax.swing.JComboBox<>();
-        descriptionTextField = new javax.swing.JTextField();
         salvarAddIngred = new javax.swing.JButton();
-        produtoTextField = new javax.swing.JTextField();
         UpdateButtonTabIng = new javax.swing.JButton();
+        IngredReturnInicio = new javax.swing.JButton();
         deleteIngButton = new javax.swing.JButton();
+        descriptionTextField = new javax.swing.JTextField();
+        metricaBox = new javax.swing.JComboBox<>();
+        quantTextField = new javax.swing.JTextField();
+        precoTextField = new javax.swing.JTextField();
+        produtoTextField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1280, 720));
+        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setPreferredSize(new java.awt.Dimension(1280, 720));
+        getContentPane().setLayout(null);
 
-        IngredReturnInicio.setText("Voltar");
-        IngredReturnInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IngredReturnInicioActionPerformed(evt);
-            }
-        });
-
+        IngredientesTable.setBackground(new java.awt.Color(255, 204, 204));
+        IngredientesTable.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        IngredientesTable.setForeground(new java.awt.Color(255, 255, 255));
         IngredientesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -102,138 +101,111 @@ public class TelaIngredientes extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(IngredientesTable);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(IngredReturnInicio)
-                .addGap(25, 25, 25))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(IngredReturnInicio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getContentPane().add(jScrollPane1);
+        jScrollPane1.setBounds(320, 320, 651, 340);
 
-        precoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Preço do produto"));
-        precoTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                precoTextFieldActionPerformed(evt);
-            }
-        });
-
-        quantTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Quantidade do item:"));
-
-        metricaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Escolha uma opção de Metrica>", "Ml(mililitros)", "L (Litros)", "g (gramas)", "kg (Quilos)", "U (Unidades)" }));
-        metricaBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                metricaBoxActionPerformed(evt);
-            }
-        });
-
-        descriptionTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição do produto (opcional)"));
-
+        salvarAddIngred.setBackground(new java.awt.Color(255, 204, 204));
+        salvarAddIngred.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        salvarAddIngred.setForeground(new java.awt.Color(255, 255, 255));
         salvarAddIngred.setText("ADD");
         salvarAddIngred.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salvarAddIngredActionPerformed(evt);
             }
         });
+        getContentPane().add(salvarAddIngred);
+        salvarAddIngred.setBounds(320, 271, 140, 40);
 
+        UpdateButtonTabIng.setBackground(new java.awt.Color(255, 204, 204));
+        UpdateButtonTabIng.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        UpdateButtonTabIng.setForeground(new java.awt.Color(255, 255, 255));
+        UpdateButtonTabIng.setText("Atualizar Tabela");
+        UpdateButtonTabIng.setMaximumSize(new java.awt.Dimension(72, 23));
+        UpdateButtonTabIng.setMinimumSize(new java.awt.Dimension(72, 23));
+        UpdateButtonTabIng.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateButtonTabIngActionPerformed(evt);
+            }
+        });
+        getContentPane().add(UpdateButtonTabIng);
+        UpdateButtonTabIng.setBounds(470, 270, 140, 40);
+
+        IngredReturnInicio.setBackground(new java.awt.Color(255, 204, 204));
+        IngredReturnInicio.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        IngredReturnInicio.setForeground(new java.awt.Color(255, 255, 255));
+        IngredReturnInicio.setText("Voltar");
+        IngredReturnInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                IngredReturnInicioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(IngredReturnInicio);
+        IngredReturnInicio.setBounds(790, 270, 180, 40);
+
+        deleteIngButton.setBackground(new java.awt.Color(255, 204, 204));
+        deleteIngButton.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        deleteIngButton.setForeground(new java.awt.Color(255, 255, 255));
+        deleteIngButton.setText("Excluir Ingrediente");
+        deleteIngButton.setPreferredSize(new java.awt.Dimension(72, 23));
+        deleteIngButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteIngButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(deleteIngButton);
+        deleteIngButton.setBounds(630, 270, 150, 40);
+
+        descriptionTextField.setBackground(new java.awt.Color(255, 204, 204));
+        descriptionTextField.setFont(new java.awt.Font("Segoe UI", 2, 36)); // NOI18N
+        descriptionTextField.setForeground(new java.awt.Color(255, 255, 255));
+        descriptionTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Descrição do produto (opcional)"));
+        getContentPane().add(descriptionTextField);
+        descriptionTextField.setBounds(320, 120, 653, 144);
+
+        metricaBox.setBackground(new java.awt.Color(255, 204, 204));
+        metricaBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "<Escolha uma opção de Metrica>", "Ml(mililitros)", "L (Litros)", "g (gramas)", "kg (Quilos)", "U (Unidades)" }));
+        metricaBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                metricaBoxActionPerformed(evt);
+            }
+        });
+        getContentPane().add(metricaBox);
+        metricaBox.setBounds(850, 40, 119, 60);
+
+        quantTextField.setBackground(new java.awt.Color(255, 204, 204));
+        quantTextField.setFont(new java.awt.Font("Segoe UI", 2, 36)); // NOI18N
+        quantTextField.setForeground(new java.awt.Color(255, 255, 255));
+        quantTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Quantidade do item:"));
+        getContentPane().add(quantTextField);
+        quantTextField.setBounds(680, 40, 164, 63);
+
+        precoTextField.setBackground(new java.awt.Color(255, 204, 204));
+        precoTextField.setFont(new java.awt.Font("Segoe UI", 2, 36)); // NOI18N
+        precoTextField.setForeground(new java.awt.Color(255, 255, 255));
+        precoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Preço do produto"));
+        precoTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                precoTextFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(precoTextField);
+        precoTextField.setBounds(490, 40, 178, 63);
+
+        produtoTextField.setBackground(new java.awt.Color(255, 204, 204));
+        produtoTextField.setFont(new java.awt.Font("Segoe UI", 2, 36)); // NOI18N
+        produtoTextField.setForeground(new java.awt.Color(255, 255, 255));
         produtoTextField.setBorder(javax.swing.BorderFactory.createTitledBorder("Nome do Produto:"));
         produtoTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 produtoTextFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(produtoTextField);
+        produtoTextField.setBounds(324, 40, 160, 63);
 
-        UpdateButtonTabIng.setText("Atualizar Tabela");
-        UpdateButtonTabIng.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateButtonTabIngActionPerformed(evt);
-            }
-        });
-
-        deleteIngButton.setText("Excluir Ingrediente");
-        deleteIngButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteIngButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(descriptionTextField)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(produtoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(precoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(quantTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(metricaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(salvarAddIngred, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(UpdateButtonTabIng, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteIngButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(produtoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(precoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(quantTextField)))
-                    .addComponent(metricaBox, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(descriptionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(salvarAddIngred, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-                    .addComponent(UpdateButtonTabIng, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(deleteIngButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(54, 54, 54))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Captura de tela 2024-06-04 212110.png"))); // NOI18N
+        getContentPane().add(jLabel2);
+        jLabel2.setBounds(0, -250, 1300, 1220);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -372,8 +344,7 @@ if (IngredientesTable.getSelectedRow() != -1) {
     private javax.swing.JButton UpdateButtonTabIng;
     private javax.swing.JButton deleteIngButton;
     private javax.swing.JTextField descriptionTextField;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> metricaBox;
     private javax.swing.JTextField precoTextField;
